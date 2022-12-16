@@ -1,0 +1,1074 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="og:site_name" content="alasda.ir"/><link rel="canonical" href="https://alasda.ir/drafts/zdump"/><meta name="twitter:url" content="https://alasda.ir/drafts/zdump"/><meta name="og:url" content="https://alasda.ir/drafts/zdump"/><title>zdump | alasda.ir</title><meta name="twitter:title" content="zdump | alasda.ir"/><meta name="og:title" content="zdump | alasda.ir"/><meta name="description" content="Alasdair's blog and resume"/><meta name="twitter:description" content="Alasdair's blog and resume"/><meta name="og:description" content="Alasdair's blog and resume"/><meta name="twitter:card" content="summary"/><link rel="stylesheet" href="/styles.css" type="text/css"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><link rel="shortcut icon" href="/images/favicon.png" type="image/png"/><link rel="alternate" href="/feed.rss" type="application/rss+xml" title="Subscribe to alasda.ir"/></head><body><header><div class="wrapper"><a href="/" class="site-name">Alasdair McCall</a></div></header><div class="wrapper"><p>2020-01-02 16:41:55|BASH Script to Record Xcode Simulator|bash-script-to-record-xcode-simulator|I've previous <a href="http://alasda.ir/recording-a-video-of-the-xcode-simulator/">written</a> how to use <code>xcrun simctl</code> to record the simulator in an easy to use command line - I've improved this with a simple bash script.</p><h5>Record Xcode Simulator</h5><pre><code>recxcsim() {
+  tmpfile="$(mktemp -d)/xcode-simulator-recording.mov"
+  trap "open $tmpfile &amp;&amp; sleep 0.5 &amp;&amp; rm $tmpfile" EXIT
+  echo "Recording booted simulator. Press CRT+C to stop and open file..."
+	xcrun simctl io booted recordVideo $tmpfile
+}
+</code></pre><p>Drop this bash function into your <code>~/.bash_profile</code> or equalivant (I use <a href="https://ohmyz.sh/">ZSH</a>) and run <code>recxsim</code> at the command line. This will start</p><ul><li>start recording a booted simulator until cancelled (CRT+C)</li><li>open the video in default player (Qtime usually)</li><li>remove the temporary .mov file</li></ul><h6>Motivation</h6><p>It's very common to want to record of video of your Xcode simulator, either for demo purposes or, in my case, to check what some UI test did. It's very tedious watching the simulator and the urge visit <a href="https://www.reddit.com/r/yesyesyesno/">/r/yesyesyesno/</a> can be too great.</p><p>Now I can launch my tests, surf the internet for a bit, a</p><p>2019-11-03 12:26:00|How to compile Xcode for device with newer iOS version|how-to-compile-xcode-for-device-with-newer-ios-version|I always forget how to compile and run my apps on a device with a high OS version than the supported OS of my Xcode - here's how.</p><h6>Download</h6><ul><li>Download the version of Xcode which will compile to the device - I like to use <a href="https://github.com/xcpretty/xcode-install">xcversion</a> to manage my Xcodes.</li><li>Link (or copy) the iPhoneOS device support file from the download Xcode directory to the current Xcode directory</li><li>Restart Xcode</li></ul><h6>Example</h6><p>Compile for an 11.1 device on Xcode 10.1</p><pre><code>ls -s /Applications/Xcode-13.1.app/Contents/Developer/Platforms/iPhoneOS.platform/DeviceSupport/13.1 /Applications/Xcode-10.1.app/Contents/Developer/Platforms/iPhoneOS.platform/DeviceSupport/13.1
+</code></pre><p><em>Note:</em> To save up disk space copy <code>cp</code> rather than link <code>ln</code> the support files. Then delete the entire <code>Xcode-13.3.app</code> folder.</p><p>2019-08-09 13:47:00|Using Xcode to review big a pull request|using-xcode-to-review-big-a-pull-request|Large pull requests (PRs) are not great and we should always strive for smaller PRs. The reality of working with a large code base, where a small change can affect lots of areas, mean large, many lined PRs are often unavoidable. *</p><p>GitHub offers a very good desktop web app for reviewing pull requests. For small and medium sized review this is often good enough. For larger reviews I prefer to these tools <em>with</em> Xcode.</p><h5>How to use Xcode for large pull requests</h5><p>For this worked example the PR is from a branch <code>v_big</code> into <code>develop</code>.</p><h6>1. Get all file changes</h6><p>From the command line, checkout the PR branch and do a <em>soft</em> reset on top of the branch being merged into.</p><pre><code class="language-bash">git checkout v_big
+git reset --soft &lt;commit hash&gt;
+</code></pre><p>Where the hash value is the git commit where the PR's branch diverged from.</p><h6>2. Show in Xcode</h6><p>Open the project using Xcode. Open the <em>Project Navigator</em> (<code>⌘+1</code>) and then apply the <em>Show only modified files</em> filter at the bottom of the navigator pane - see red arrow.</p><img src="https://raw.githubusercontent.com/ajmccall/ajmccall.github.io/master/using-xcode-to-review-big-a-pull-request/1.png" alt="Xcode showing changed files"/><p>In the <em>Project Navigator</em> we can see all the files that have changed in this PR.</p><p>If you switch to use the <em>Version Editor</em> (<code>⇧ + ⎇ + ⌘ + Return</code>) we can see all the changes.</p><p>Now you can move around between the modified files and getting a clearer picture of the changes.</p><p>Of course don't forget to leave comments</p><h6>Benefits</h6><p>The benefits of this approach mean that the reviewer can navigator around the changes, using action like <em>Jump to...</em> to inspect what new changes have been made.</p><p>Often a project is structure to represent a directory-file system - with grouping of similar code or functionalities. Using this Xcode view, the reviewer can see where cluster of changes have occurred as well as being able to quickly choose the critical areas to focus on - while ignoring others.</p><p>Another reason I prefer this approach from Github, is that I'm now reviewing in my <em>most</em> natural environment with my familiar styling and shortcuts - which helps focus the mind.</p><p>Enjoy.</p><hr><p><strong></strong>* Of course if a small change results in many file changes, this a massive red flag that the code base is far too interconnected. A refactoring to decouple structures would be the next thing you do.</p><p>2019-02-12 14:12:00|Apple's own payment UX is just plain bad|apples-own-payment-ux-is-just-plain-bad|Apple's platform can feel arbitary and capricious at time. One rule applies to you, normal users and app, while another to Apple and their apps.</p><p>Checkout these two payment flows 👇</p><p style="text-align:center"><i>Apple's own iCloud payment flow</i></p><img alt="iCloud payment flow" src="https://raw.githubusercontent.com/ajmccall/ajmccall.github.io/master/apple.gif" style="width: 50%;">
+
+<p style="text-align:center"><i>Normal iTunes payment flow</i></p>
+
+<img alt="Normal payment flow" src="https://raw.githubusercontent.com/ajmccall/ajmccall.github.io/master/normal.gif" style="width: 50%;">
+<br/>
+##### What the fudge!?!
+
+The iCloud payment journey is missing the “double tap” home button to confirm. In this case I was simply investigating *what the "Buy" button tap* would do. I did not expect it to buy and buy it immediately. Yet because my face was ever present, I was immediately charged. 
+
+This is just wrong. A very bad and inconsistent UX. 
+
+It is at best neglectful, at worse uncaring. Sure it was just £0.69. It could have been £25 or £199. 
+
+It's these situations that I really feel that Apple is letting us (and themselves) down.
+2018-06-25 19:35:00|Easy Command Line Silent Push using Houston|easy-command-line-silent-push-using-houston|Here is a quick command line to tool to send silent background push notifications to your iOS applications.
+
+### Houston
+
+In  a pre-[Fastlane](https://fastlane.tools/) world, we had the brilliant and prolific [@mattt](https://twitter.com/mattt?lang=en) to thank for the wonderful [Nomad-CLI](https://nomad-cli.com/). A small and powerful set of tools to make life just a little easier for us Apple developers.
+
+One of them, [Houston](https://github.com/nomad/houston) allows for easy communication with Apple’s PN.
+
+To install
+`gem install houston`
+
+and test
+`apn push "<token>" -c /path/to/apple_push_notification.pem -m "Test" `
+
+### Silent pushes
+A silent push is used to wake an application and get it to do small chunks of work. These pushes are not guaranteed to be sent or received by device. In the worst case, if the device's OS detects abuse of this 30 seconds of work, your silent push notifications will just be ignore.
+
+Once you're tested that Houston works, to send a silent push notification simply use the command line
+
+```
+apn push “<token>” -c /path/to/apple_push_notification.pem -P "{\"aps\" : {\"content-available\" : 1},\"acme1\" : \"bar\",\"acme2\" : 42}"
+```
+
+Note the use of escape character `\` to allow JSON string formats. 
+
+In this example above any device targeted by `<token>` will wake up and received the payload
+
+```
+"acme1": "bar",
+"acme2": 42
+```
+
+Happy pushing.
+
+### Addendum 
+
+* To generate a pemfile, it is recommended to use [fastlane pem](https://fastlane.tools/pem) , which completely automates the process of creating the certificate.
+* Make sure your app allows background updates and can receive pushes. [Push tutorial](https://www.raywenderlich.com/8164-push-notifications-tutorial-getting-started)
+
+2017-08-10 12:11:16|Goodbye Stack Overflow Documentation|goodbye-stack-overflow-documentation|[Jon Ericson of Stack Overflow writes](https://meta.stackoverflow.com/questions/354217/sunsetting-documentation/?utm_source=so-owned&utm_campaign=doc-sunset&utm_medium=email)
+
+>**We will stop accepting contributions to Documentation on August 8**
+
+> We still think Stack Overflow Documentation is a good idea... initial research has mostly been proven correct.
+
+> ...
+
+>By May, it was clear we weren't on the right path. **New users weren't coming to Documentation**. So we went back to the drawing board and started another round of user interviews focused on Transact SQL. We brought on a user experience researcher to help us interview technical writers. The results were encouraging in the sense that we know a lot more about what makes for great documentation and how we might support that effort. But it was also clear fixing Documentation would require a significantly larger team.
+
+>In addition, it’ll be a very long time before that work will pay off in terms of bringing new users to Stack Overflow. Our interviews showed even very experienced users of T-SQL felt inadequate to contribute documentation.
+
+> ... 
+
+> Finally, our research showed that while a lot of developers were dissatisfied, the current state of **programming documentation is not universally broken the way Q&A** was when Stack Overflow started. In particular, we heard over and over that Stack Overflow has become de facto documentation for many technologies.
+
+While I'm a little sad by this news (I had previously [written](http://ajmccall.com/documentation-stackexchange/) about this project) I believe that Stack Overflow Documentation demise documents one last great lesson in tech. *How and when to abandon a project.*
+
+No matter the ~~good~~ great intentions, some projects you are working on are just not working. It's important to identify them *early*, identify viable improvements to make and test the changes. If the project is still dying, either pivot or abandon it. 
+
+And we all know which one is the hardest decision to make.
+
+>Even though this outcome has been a disappointment, most of us agree it was the right decision.
+
+ 
+
+2017-06-08 14:16:47|xCode compilation error using named @objc attribute|xcode-compilation-error-using-named-objc-attribute|I recently stumbled on this interesting issue and decided to jot it down.
+
+### @objc
+xCode allows [mix and matching](https://developer.apple.com/library/content/documentation/Swift/Conceptual/BuildingCocoaApps/MixandMatch.html) Swift and Objective-c code within a single project.
+
+A Swift file's functionality is exposed to Objective-c classes via the `@objc` attribute as such
+
+```
+@objc public class SimpleSwift : NSObject {
+
+}
+``` 
+
+When compiled, xCode will generate an Objective-c interface for this Swift class in an auto-generated interface `$(SWIFT_MODULE_NAME)-Swift.h`. This file will contain something that looks like this
+
+```
+SWIFT_CLASS("_TtC14SwiftObjcSwift11SimpleSwift")
+@interface SimpleSwift : NSObject
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+```
+
+Additionally we can use `objc(name)` to control the generated interface _name_. This can be useful in a few places. For instance at [Trainline.com](http://trainline.com) we do this to maintain our the Objective-c style naming convention of `XXXClassName` of our legacy codebase. 
+
+
+This test Swift class becomes
+```
+@objc(SOSSimpleSwift) public class SimpleSwift : NSObject {
+
+}
+```
+Now the auto-generated interface becomes
+```
+SWIFT_CLASS_NAMED("SimpleSwift")
+@interface SOSSimpleSwift : NSObject
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+```
+
+### The Issue
+
+Now let's use this interface in an Objective-c class and then extend that in a Swift file. 
+
+```
+#import <Foundation/Foundation.h>
+@class SOSSimpleSwift;
+
+@interface SOSBaseObjc : NSObject
+
+- (void)foo:(SOSSimpleSwift *)simpleSwift;
+- (void)bar:(NSString *)aString;
+
+@end
+```
+
+A Swift subclass
+```
+class ExtendedSwift : SOSBaseObjc {
+
+    // This method declaration will not compile
+    override func foo(_ simpleSwift: SOSSimpleSwift!) {
+    }
+    
+    override func bar(_ aString: String!) {
+    }
+}
+```
+Proof
+
+[![Screen Shot 2017-06-08 at 15.08.49.png](https://s4.postimg.org/5te2f88tp/Screen_Shot_2017-06-08_at_15.08.49.png)](https://postimg.org/image/53va2v8a1/)
+
+### Solution
+The only solution at time of writing is dropping the _name_ from `@objc(name)` attribute.
+
+My good friend [Mark](https://twitter.com/defragged) may have an answer from his stint at WWDC.
+2017-05-15 09:39:00|Recording a video of the Xcode simulator|recording-a-video-of-the-xcode-simulator|I have always used QuickTime to record video of a simulator session. And yet there has existed, for quite sometime too, a far easier way to do this using `xcrun` tool.
+
+```
+xcrun simctl io booted recordVideo ~/Desktop/simulator-recording.mov
+```
+
+And voila, a high fidelity video of whatever it is you did on your simulator.
+
+I found this, and a bunch of other pro `xcrun` tips, on this excellent Medium article, [iOS Simulator Power Ups](https://medium.com/the-traveled-ios-developers-guide/ios-simulator-power-ups-407060863b3c)
+
+Among the excellent top tips, and one which I did know (#smallwins), is to use `xcrun` to depp links.
+
+> Another increasingly common part of iOS development is testing url schemes. With deep linking becoming a powerful tool to incorporate both as a consumer and a provider, simctl can help here too:
+
+```
+xcrun simctl openurl booted https://www.dreaminginbinary.co/
+```
+> And just like that, the active device pops open Safari with the URL. Of course, if you know other app’s schemes — those are fair game, too:
+
+```
+xcrun simctl openurl booted sms: #Open Messages
+```
+
+Go on, give them all a quick go. 
+2016-06-22 23:13:02|Stackoverflow takes on documentation.|documentation-stackexchange|Simply put I love stackoverflow.com [SO]. An obvious statement from a developer, but I really love everything about it.
+
+I love the guys that created it, the reasons they did and the way they went about it. I love how well it [works](https://en.wikipedia.org/wiki/Stack_Overflow#Statistics). I love the awesomely named, [Area51](http://area51.stackexhcange.com) and the [communities](http://pets.stackexchange.com/) it spawned. 
+
+I fucking love the [points](http://stackoverflow.com/users/179843/ajmccall?tab=reputation) man.
+ 
+Which meant I was pretty excited to [finally](http://meta.stackoverflow.com/questions/303865/warlords-of-documentation-a-proposed-expansion-of-stack-overflow) hear about the beta release of SO's latest offerings, http://docs-beta.stackexchange.com/. 
+
+Below I give a brief description and try it first hand.
+
+######Documentation hasn't moved on
+
+The developer community has long known that documentation is never perfect or reliable. Since there is no incentive to maintain documentation as a code base grows, an API's documentation quickly becomes spotty, uninformative or non existent. 
+
+The SO community think that they can use their extremely very successful system to create meaningful, rich and informative documentation.
+
+Using those damned points and badges they are trying to ~~get~~ trick the developer community to write clear, informative and modern documentation.
+
+######How
+Rather than dryly adding wordage for each API, library by library, documentation is written based on a topic with worked examples to give developers the right information to use the API.
+
+A typical iOS topic could be `NSThread` with examples given such as 
+
+- Run a thread in the background
+- Run two threads synchronously etc
+
+Each topic may come with a formalization of the parameters as well as remarks on usage, pitfalls and other bits of information.
+
+I've given it a bash with the Apple classic `Reachability` [here](http://docs-beta.stackexchange.com/documentation/ios/drafts/6243).
+
+######Near future
+Beyond documentation, I see that at some point, this site will become the defacto destination common code snippets. 
+
+There will be far few developers punching in the same old search term, just so they can find that *one* SO answer with the code snippet they need. 
+
+I am looking at you "_how to dispatch a block once on main thread_"!
+
+
+2016-02-16 15:53:11|IDEDistributionErrorDomain Code=1 error and Fastlane|idedistributionerrordomain-code-1-error-and-fastlane|If you are not using the amazing [FastLane](https://fastlane.tools/) build tools then it's time you did. 
+
+If you are though, you may have noticed that your build servers are breaking, especially when using the [deliver](https://github.com/fastlane/fastlane/blob/master/docs/Actions.md#deliver) or [pilot](https://github.com/fastlane/fastlane/blob/master/docs/Actions.md#pilot) actions.
+
+A sample error below
+
+```Error Domain=IDEDistributionErrorDomain Code=1 
+The operation couldn't be completed. (IDEDistributionErrorDomain error 1.)```
+
+#####The problem
+
+Apple's WWDR certificate expired on 14/02/16 and simply replacing this certificate with the new one should solve the issue.
+
+
+#####The fix
+
+- Download the new certificate https://developer.apple.com/certificationauthority/AppleWWDRCA.cer
+- Open keychain and remove the expired certificate from `login` and `system`
+- Add new certificate
+
+#####References
+- https://github.com/fastlane/gym/issues/100#issuecomment-184026293
+- [https://www.reddit.com/r/iOSProgramming/comments/45siza/this_certificate_has_an_invalid_issuer/](https://www.reddit.com/r/iOSProgramming/comments/45siza/this_certificate_has_an_invalid_issuer/) 
+
+
+
+2015-12-11 21:29:00|How to write clean code unit test (#1)|how-to-write-a-unit-test|It's become intuitive that writing unit tests is a good thing. It's less intuitive why it's important to have clean, maintainable unit test code. It is perhaps even more important the clean, maintainable production code. Why? Imagine this scenario...
+
+>After a disastrous few releases, the development team decide in their retro that they want to sufficiently cover the code base to prevent further bugs. Their PM, begrudgingly, gives them 1 month to retroactively write tests.  
+
+>The developers feel that since they are not writing production code, they can write quick and unstructured unit test code. 
+
+> After 1 month, both developers and the PM are happy. Developers because they have 85% coverage. The PM because he has stable code base.
+
+> As time progresses though, the team may as well have not spent that 1 month in the first place. New developers battle to read the unit tests and can't add to them. While new features, either break the unit tests, in which case the tests are commented out, or are simply not added due to the overheard of refactoring the unit test class.
+
+As the scenario above highlights, once a team is committed to writing unit tests, it is vital to keep that code base as well maintained, ***or better***, as your production code. 
+
+As Uncle Bob puts it better
+
+> [asymmetrical]. The quality of the production code depends on the tests; but the quality of the tests is _independent_ of the production code.
+
+In this two parter, I'll demonstrate how I like to structure my unit tests and show you some of the rules and conventions to use to make your unit tests readable, reusable and maintainable.
+
+-- -- 
+####The setup
+
+Below is a simplified version of a real world class called `AppStoreRater`. This class prompts users to rate our app ([MTV Trax](http://www.mtvtrax.com)) after a certain number of tracks have been played.
+
+```objc
+@interface AppStoreRater : NSObject
+
+@property (nonatomic, strong) AlertManager *alertManager;
+@property (nonatomic, strong) Analytics *analytics;
+@property (nonatomic, weak) id<PlaybackNotifier> playbackNotifier; 
+
+@end
+```
+
+It is not important to explain how to use this class except perhaps to mention that the property `PlaybackNotifier` is used to "tell" `AppStoreRater` when a track has been played. After a set number of plays, the "Please rate this app" popup dialogue will appear.
+
+`PlaybackNotifier` follows the observer pattern and has the follow methods
+
+```objc
+- (void)addObserver:(id<PlaybackObserver>)observer;
+- (void)removeObserver:(id<PlaybackObserver>)observer;
+```
+
+####The skeleton unit test
+A skeleton unit test class is given below, and although it contains no tests yet, it is still performing validations.
+
+```objc
+@interface TestAppStoreRater : XCTestCase
+
+// use class properties as often as you can 
+@property (nonatomic, strong) id mockAlertManager;
+@property (nonatomic, strong) id mockAnalytics;
+@property (nonatomic, strong) id mockPlaybackNotifier;
+
+// only 1 object, your tested class, should be real
+@property (nonatomic, strong) AppStoreRater *appStoreRater;
+@end
+
+@implementation TestAppStoreRater
+
+#pragma mark - Test
+
+#pragma mark - SetUp
+
+- (void)setUp {
+    [super setUp];
+    
+    // order of setUp, should mirror order of tearDown
+    [self setUpAlertManager];
+    [self setUpAnalytics];
+    [self setUpPlaybackNotifier];
+
+
+    // only 1 object, your tested class, should be real
+    self.appStoreRater = [[AppStoreRater alloc] init];
+    self.appStoreRater.alertManager = self.mockAlertManager;
+    self.appStoreRater.analytics = self.mockAnalytics;
+}
+
+- (void)setUpAlertManager {
+    
+    // always use STRICT mocks if possible
+    self.mockAlertManager = OCMStrictClassMock([AlertManager class]);
+}
+
+- (void)setUpAnalytics {
+    
+    self.mockAnalytics = OCMStrictClassMock([AnalyticsController class]);
+}
+
+- (void)setUpPlaybackNotifier {
+
+    self.mockPlaybackNotifier = OCMStrictProtocolMock(@protocol(PlaybackNotifier));
+
+    // We expect that AppStoreRater always adds and removes  
+    // itself as an observer during it's lifecycle.
+    OCMExpect(self.mockPlaybackNotifier addObserver:[OCMArgs any]);
+    OCMExpect(self.mockPlaybackNotifier removeObserver:[OCMArgs any]);
+}
+
+#pragma mark - TearDown
+
+- (void)tearDown {
+    
+    // order of tearDown, should mirror order of setUp
+    self.appStoreRater = nil;
+    [self tearDownPlaybackNotifier];
+    [self tearDownAnalytics];
+    [self tearDownAlertManager];
+    
+    [super tearDown];
+}
+
+- (void)tearDownPlaybackNotifier {
+    
+    OCMVerifyAll(self.mockPlaybackNotifier);
+    self.mockPlaybackNotifier = nil;
+}
+
+- (void)tearDownAnalytics {
+    
+    OCMVerifyAll(self.mockAnalytics);
+    self.mockAnalytics = nil;
+}
+
+- (void)tearDownAlertManager {
+    
+    OCMVerifyAll(self.mockAlertManager);
+    self.mockAlertManager = nil;
+}
+@end
+```
+
+Some things to note to go with the commented sections
+
+######Only ever have one real object
+There should only ever be one class that is initialised, and that is class the one you are testing. `AppStoreRater`. All other classes should be mocked. 
+
+*I use [OCMock](http://ocmock.org/) for objective-c*
+
+######Have as many properties as you can
+
+Class properties, created in `setUp` and then verified and torn down in `tearDown` save you loads of repetitive code. Mocked class properties can still be mocked with `expected` behaviours in the test methods themselves, but you will see that `OCMVerifyAll(mock)` is called in the `tearDown`.
+
+_This makes you unit test classes more readable and maintainable._
+
+######Use STRICT over PARTIAL mocks
+It is generally always better to use _strict_ mocks over _partial_ mocks. A strict mock will throw an exception if any unexpected method or property is called, while a partial mock will return `nil` or do nothing. 
+
+*Partial mocks hide bugs. If you can't use a strict mock, then it probably suggests your class isn't structured right.*
+
+######SetUp and TearDown mirror each other
+The order of setting up and tearing down of the mocks and tested class is important. Notice that in `tearDown`, the objects are being nilled in the reverse order to their creation in `setup`. This is an important habit to get into, as it allows mocked objects modified during the tested class's lifecycle to verify those actions.
+
+Perhaps a worked example will explain better.
+
+Remember that `AppStoreRater` adds itself as an observer of `playbackNotifier` when that property is set. It also removes itself as an observer during `dealloc` when the `AppStoreRater` object is destroyed.
+
+I our `tearDown` method
+```objc
+- (void)tearDown {
+    
+    self.appStoreRater = nil;
+```
+
+`self.appStoreRater = nil` will call `dealloc` on our tested class
+
+```objc
+- (void)dealloc {
+    [self.playbackNotifier removeObserver:self]
+}
+```
+
+Since `self.playbackNotifier` is a mock object itself. It must not be `nil` so we can record the call to `removeObserver:`. This method call is verified moments later in 
+
+```objc
+- (void)tearDownPlaybackNotifier {
+    
+    OCMVerifyAll(self.mockPlaybackNotifier);
+```
+
+_Even if your tested class doesn't have observers or use `NSNotificationCenter` getting the `setUp` and `tearDown` order right is just a good habit to get into._
+
+######Follow clean code practises
+Follow all clean code practises. Break up the code into well named short methods. Groups methods that call one another close together. And in `objc` use `pragma mark` to make it easier to skim read the class.
+ 
+-- --
+
+Right, so now we have a good unit test skeleton to work with. I part two we'll discuss how to implement the test methods.
+
+
+2015-11-20 22:20:00|Apple Music and changes to iTunes Affiliate urls|apple-music-itunes-affiliate|When Apple released Apple Music, they made a small change to the way their [iTunes affiliate](https://www.apple.com/itunes/affiliates/) program worked.
+
+Previously, any url that linked to some iTunes content, would always open iTunes itself.
+
+After Apple Music, only urls with the `app=itunes` parameter would do this. Older style urls, ones without this parameter now open Apple Music by default.
+
+Oh very sneaky Apple. We see what you did there.
+
+Our app [MTV Trax](http://mtvtrax.com) allows users to buy any track they would like to keep. And for a few months, our buy buttons would direct our lovely users to a competing service. _To a competing service!_
+
+Very sneaky.
+
+The changes were documented [here](https://www.apple.com/itunes/affiliates/resources/blog/apple-music-is-now-live-1.html) although I'm not sure how well it was publicised.
+
+If you are picky about where your users go after tapping on a buy link, you might want to reexamine your links.
+
+######Example
+
+For instance
+
+`https://itunes.apple.com/us/album/cool-for-the-summer-single/id1013069897?app=music`
+
+will take your user to Apple Music where they can stream the song, while
+
+`https://itunes.apple.com/us/album/cool-for-the-summer-single/id1013069897?app=itunes`
+
+takes you to the iTunes Store where you can buy the song. 
+
+######How much do I earn?
+
+In both cases you'll still be paid by Apple for sending users their way, although even here it has change.
+
+For iTunes redirects, an affiliate member earns 7% of any sales within 24hrs on iTunes. 
+
+For Apple Music redirects, an affiliate member earns a one-off *$5* fee, if the user purchases/renews their subscription.
+
+Back of the envelope calculates suggest that if your user spends more than *$70* on iTunes you are better off sending them to iTunes. 
+
+######Summary
+
+It seems like a no brainer to always redirect to iTunes. 
+
+For one, iTunes redirects always earn commission unlike the Apple Music one-off payment. An iTunes redirect commission is also paid on *all* purchases made, not just the item you linked to. Movies, TV shows, books and games are included. 
+
+Lastly, you only get paid by Apple if, and that's a big *if*, the user subscribes at the end of their trial.
+
+My advise? 
+
+Don't feed the Apple Music monster. 
+
+Send your users to iTunes and receive a little more cash in return.
+
+#####Further reading
+
+- [Why it's worth it to join the affiliate program](http://awkwardhare.com/post/117029547150/use-the-itunes-affiliate-program-its-worth-it)
+- [iTunes Affiliate Program](https://www.apple.com/itunes/affiliates/)
+2015-10-19 15:27:00|Validate iTunes receipt using cURL|validate-itunes-receipt-using-curl|Create a JSON file called `body.json`
+
+```
+{
+	"receipt-data" : "<your receipt base64 encoded>",
+	"password" :"<your shared secret>"
+}
+```
+
+- `receipt-data` must contain your receipt as a base64 encoded string. 
+- `password` is only needed if the receipt if for a recurring subscription product. The shared secret password is available from your team's iTunes Connect account.
+
+Open favourite terminal, navigate to `body.json` file's location and type
+
+```
+curl -H "Content-Type: application/json" --data @body.json https://buy.itunes.apple.com/verifyReceipt
+```
+
+A `200` response and a full JSON detailing the product purchase is returned if all is good.
+
+Look out for `21007` error, which implies that a test receipt was sent to the production server. Simply change the url to `https://sandbox.itunes.apple.com/verifyReceipt`. 
+
+All other `2000x` response errors and their meanings can be found here, [Apple Docs](https://developer.apple.com/library/ios/releasenotes/General/ValidateAppStoreReceipt/Chapters/ValidateRemotely.html#//apple_ref/doc/uid/TP40010573-CH104-SW4). 
+
+---
+I enjoy prettify the output using [jazor](https://github.com/mconigliaro/jazor).
+
+```
+[sudo] gem install jazor bundler
+curl -H "Content-Type: application/json" --data @body.json https://buy.itunes.apple.com/verifyReceipt | jazor -c
+```
+2015-09-30 19:19:20|Google SignIn profile image crash|google-signin-crash|####TL;DR
+Downgrade `GoogleSignIn` pod to `2.2.0`
+
+####Under the hood
+
+The latest version of Google's SignIn cocoapod, `Google/SignIn (2.3.0)` crashes when requesting the user's profile image.
+
+```
+func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!, withError error: NSError!) {
+
+    if (error == nil) {
+
+        let userId = user.userID
+        let name = user.profile.name
+        let email = user.profile.email
+        if user.profile.hasImage{
+            // crash here !!!!!!!! 
+            let imageUrl = user.profile.imageURLWithDimension(200)
+        }
+    //...
+}
+```
+
+The crash is 
+
+```
+2015-09-30 18:56:46.968 GoogleLogin[96614:5594982] -[NSURL isFIFEUrl]: unrecognized selector sent to instance 0x7fe248f11f20
+```
+
+It looks like Google accidentally released an SDK with a typo in it because clearly the line should be `- [NSURL isFILEUrl]:`
+
+Simply downgrade to the latest, _stable_, release to prevent these crashes. My `PodFile` looks like this
+
+```
+pod 'Google/SignIn', '1.0.7'
+```
+
+
+[StackOverflow](http://stackoverflow.com/a/32872065/179843)
+2015-07-14 20:57:53|WWDC - 2015|wwdc-2015|Summarised noted, mostly for myself, of interesting 2015 WWDC sessions. I'll update them as I watch
+
+###[State of the Platform](https://developer.apple.com/videos/wwdc/2015/?id=102)
+
+**App thinning**
+
+- Should happen automatically.
+- Downloadable resource/bundles from iTunes Connect
+
+**BitCode**
+
+- Optimises binary at submission time. 
+- xCode 7 setting should be enabled by default. 
+
+#####watchOS2
+Bringing native watch apps in watchOS2
+
+**Complications**
+
+- Data is driven by a timeline so that it's accurate at the time of raising your wrist
+- Time line can change via "scheduled updates" i.e. weather
+- Complication can be updated by a push message
+- Timeline feature
+
+**Notification**
+
+- Full screen notifications
+- With custom action buttons
+
+####Foundation Technologies
+**Security**
+
+- App transport security 
+- Automatically enforce best practise
+- NSURLSession has it be default, might need to add url exception list incase server is not ready.
+
+**IPV6**
+
+- Mac can emulate IPV6 network via personal hotspot.
+- All apps must be IPV6 compliant for submission on iOS9
+
+**Internationalization**
+
+- `NSPersonalNameFormatter`, can give first name as per country.
+- Left-to-right languages is now left-to-right on the entire UI. Should be for free if using standard components.
+
+**Universal Links**
+
+- Host a file on website listing url application handles natively
+- `NSUserActivity` wraps up the link
+
+**Search**
+
+- Three ways to index content
+- App indexing extension, using by CoreSpot to periodically index your app's content
+- `NSUserActivity`, used to record what your user has been up to.
+- Web Markup, indexed by Apple's web crawler.
+
+**Multitasking**
+
+- Must use adaptive layout, **size classes**, **dynamic type** for text and **autolayout**
+- Size classes can change _regular_|_compact_ to _compact_|_compact_ as you resize the split view
+
+**SWIFT**
+
+- New error handling, **try/catch**
+- Availability checking to check if features/functions are available to the iOS
+- Protocol programming??
+- **guard** to check conditions and bail on function
+- **generics** in objc-c
+
+**xCode 7**
+
+- **header file** view of SWIFT code
+- rich text documentation
+- playgrounds
+- **stackview**
+- new profiler/debugger helps with energy usage
+- new instruments
+- address sanitiser to help debug memory 
+- test apis
+- test performance
+- user interface testing
+- code coverage 
+
+* * *
+
+###[Introducing watchOS 2.0](https://developer.apple.com/videos/wwdc/2015/?id=105)
+
+#####What's new in WatchKit
+New crown activated selectors.
+
+- **List**, **stack** and **sequence** selectors. 
+- Last two work only with graphics.
+- Background can move in relation to the selection index.
+
+**Animation**
+
+- Similar to `UIViewAnimation` with blocks. See video [Layout and Animation Techniques for WatchKit](https://developer.apple.com/videos/wwdc/2015/?id=216).
+
+**Haptic engine**
+
+- Access to enumeration of types of haptic feedback to use.
+
+**Audio recorder and speaker access.**
+
+**Video playback**
+
+- Local or off the network.
+
+**Audio playback**
+
+- *"Long form audio"* can be played with something similar to `AVFoundation`
+- Difference is music to be played is passed off to system to play to enhance battery life.
+- Allows playback even if application is not running
+
+**New Alert API**
+
+Improved visuals
+
+####New/Improved SDKs in watchOS
+
+**ClockKit**
+
+- Complications
+- Timelines
+- [WWDC Watch complications](https://developer.apple.com/videos/wwdc/2015/?id=209)
+
+**WatchConnectivity**
+
+- Normal `NSURLSession` stuff 
+- WatchConnectivity to link phone and watch. For uploading data from phone to watch (or visa versa).
+- WatchConnectivity uses `Application Context` to send `Dictionary` data to both.
+- `FileTransferAPI` to send larger files.
+- `SendMessageAPI` can be used to send message from watch to phone, waking up the application. Sending the other way doesn't wake up the watch app.
+- [WWDC WatchConnectivity](https://developer.apple.com/videos/wwdc/2015/?id=713)
+
+**CoreMotion**
+
+- Enhanced to provide real time motion data to running app.
+- Can provider motion data to app not running and batch send the data when app opens.
+
+**Security**
+
+- When watch is removed from wrist it becomes locked.
+
+* * *
+
+### [Introducing Search APIs](https://developer.apple.com/videos/wwdc/2015/?id=709)
+
+Three new related search APIs
+
+- **NSUserActivity** for viewed public app content.
+- **CoreSpotlight** Any app generated content.
+- **Web Markup** App content on web.
+
+##### NSUserActivity
+
+`NSUserActivity` objects are created as user is using your app and added to the On-Device Index.
+
+`NSUserActivity` has properties to describe
+
+- `Title` and `keywords: Set<String>`
+- `userInfo` used to repopulate the application state
+- `contentAttributeSet` a set of attributes allowing iOS to categorise and display the activity better in the search results.
+- `expirationDate` if this activity expires.
+- `isActive` informs system this is the active user activity.
+
+If an `NSUserActivity` is designated as **public**, when it's index (via the user using the app) this activity is indexed by the iCloud index and the activity is available to all users via Spotlight. If `NSUserActivity` contains web url, then it's available in Safari such as well.
+
+Making `NSUserDefaults` public doesn't mean it's indexed. Only indexed if searched in spotlight **and** engaged by many users.
+
+By adding `NSUserActivity` to the app you get 
+
+- Hand-off
+- Siri reminder *Remind me about this* as demo'ed.
+
+##### CoreSpotlight
+
+Create `CSSearchableItem`, add metadata via `CSSearchableItemAttributeSet` and then add to `CSSearchableIndex` datastore.
+
+When user taps on search result, the unique id of the `CSSearchableItem` is returned and that item can be retrieved from the `CSSearchableIndex` datastore.
+
+The `CSSearchableIndex` 
+
+- Allows for updating and deleting of `CSSearchableItem`
+- Batching of updates for large indexes
+- `CSSearchableIndexDelegate` and `Extension` so that the index can communicate with your app when in foreground and background.
+
+#####Web Markup
+
+*Applebot* has been crawling the web looking for mobile deep links. *Applebot* searches supports popular standards such as Smart App Banners, Twitter Cards and Facebook's App Links.
+
+New iOS9, **universal links**, link back to your application with normal looking HTML. See [Seamless Linking to Your App](https://developer.apple.com/videos/wwdc/2015/?id=509)
+
+##### Ranking
+
+The `NSUserActivity` ranking is determined by many factors
+
+- engagement by many users is key
+- speed of linking back to app important. Minimal loading times, view controller presentation and no hurdles such as login.
+* * *
+2015-01-22 18:59:50|iTunes Receipt Validation Helper|itunes-connect-receipt-validation|There is lots of [documentation](https://developer.apple.com/library/ios/releasenotes/General/ValidateAppStoreReceipt/Chapters/ValidateRemotely.html), [tutorials](http://www.raywenderlich.com/23266/in-app-purchases-in-ios-6-tutorial-consumables-and-receipt-validation) and [articles](http://www.objc.io/issue-17/receipt-validation.html) covering iTunes receipt validation. This is not one of them.
+
+Instead I'm offering an iOS client tool to help you and your server team develop iOS receipt validation faster. 
+
+######Scenario
+
+Your exciting start up is ready to validate all purchases made on it's new iOS app and the server lead wants to know how receipt validation works. After showing them the [documentation](https://developer.apple.com/library/ios/releasenotes/General/ValidateAppStoreReceipt/Chapters/ValidateRemotely.html) the first question will invariably be 
+
+*"Can you give me an iTunes receipt?"* 
+
+Which is immediately followed by
+
+*"What does Apple's receipt validation response look like?"*
+
+And so begins the painful process of generating iTunes receipts using phsyical devices and test sandbox users.  
+
+######Solution
+
+To streamline this process I created a simple iOS application
+
+https://github.com/ajmccall/iOSReceiptValidationHelper
+
+It does the following
+
+- Generates an iTunes in-app purchase receipt.
+- Validates the receipt against iTunes Connection sandbox server.
+- Display validation response.
+- Email receipt and validation responses.
+
+Feel free to download and use this application to provide live data for your server team.
+
+![](https://googledrive.com/host/0B9_o9wJ25OmFZFhoRWxiOTVDUGs/ajmccall/receipt-validation/screenshot04.png)
+
+2014-11-26 21:42:00|Find xCode Simulator|find-xcode-simulator|It's the little things that piss you off the most. 
+
+I, like most iOS developers, have found Apple's decision to revamp xCode's simulator _bloody_ annoying. 
+
+- It *was* located in one place. 
+- It *was* simple to identify a simulator.
+- It *was* easy to find the app you were debugging.
+
+I was so tired of finding my application's folder inside the myriad of alpha-numeric folders that now consitute xCode's simulators, that I wrote a script to help me.
+
+https://github.com/ajmccall/showSim
+
+The script concatenates a few Mac/xCode commands to find, and then open the _currently active_ simulator's root folder. 
+
+The commands are
+
+```
+xcrun simctl list | grep Boot | tr -d '()' | awk {'print "open ~/Library/Developer/CoreSimulator/Devices/"$3"/data/Containers/Data/Application"'} | sh
+```
+
+I hope to make a few improvements soon. It would be nice to open the _currently installed_ application's root folder
+
+
+2014-11-22 23:13:42|Resume|resume|##I am
+
+An iOS developer, mobile engineer and software architect who enjoys the finer aspects of programming as a craft; clean code, agile work environments, product driven development, new languages and ideas. 
+
+In a past life I toiled away writing backend Java enterprise systems, before becoming a born-again developer after making the move to writing mobile applications. The challenges thrown up when developing for these crazy new devices reignited my passion for developing. 
+
+In between I'm a ferocious podcast listener, especially while cycling. Sometimes I play guitar or kick a hacky sack. I love Stack Overflow and Brew Dog beers.
+
+##I'm here 
+You can find me online here.
+
+<div class="find-me">
+    <div class="find-me-item">
+        <a href="https://twitter.com/aljmccall"><i class="fa fa-twitter fa-4x" aria-hidden="true"></i></a>
+    </div>
+    <div class="find-me-item">
+        <a href="http://github.com/ajmccall"><i class="fa fa-github fa-4x" aria-hidden="true"></i></a>
+    </div>
+    <div class="find-me-item">
+        <a href="http://stackoverflow.com/users/179843/ajmccall"><i class="fa fa-stack-overflow fa-4x" aria-hidden="true"></i></a>
+    </div>
+</div>
+
+##I'm currently
+
+___#ios #swift #swiftui #architecture___
+
+Working with Trainline in their push to deliver their single global travel solution application. Trainline delivers high frequency, high quality features using a multi-talented cross cluster teams. 
+
+Current focusing on European growth through understanding the unique needs of the local market in order to deliver high quality features for each. Working closely with Product, Design and Analytics to create the best experience.
+
+___#swift, #swiftui, #architecture___
+In between work I spend some time working on personal projects that come to mind. Currently working/thinking about an interactive podcast application called _garnish_ and testing ideas about SwiftUI and app architecture.
+
+When the moment strikes, I throw a few words down on my blog http://alasda.ir
+
+<!-- <p style="page-break-after: always;">&nbsp;</p>
+<p style="page-break-before: always;">&nbsp;</p> -->
+##I've done
+
+<div class="portfolio">
+    <div class="portfolio-item">
+        <div class="portfolio-item-icon">
+            <a href="https://itunes.apple.com/gb/app/trainline-train-coach-app/id334235181"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple124/v4/bc/0c/4f/bc0c4f35-bdbd-6066-8873-583cddbbfa78/AppIcon-0-1x_U007emarketing-0-0-GLES2_U002c0-512MB-sRGB-0-0-0-85-220-0-0-0-6.png/460x0w.jpg" alt="Trainline" width="120" height="120"></a>
+        </div>
+        <div class="portfolio-item-blurb">
+            <div>leading travel brand</div>
+            <div>international</div>
+            <div>massive DAU</div>
+        </div>
+    </div>
+    <div class="portfolio-item">
+        <div class="portfolio-item-icon">
+            <a href="https://itunes.apple.com/us/app/mtv-trax-music-player/id925265172?ls=1&mt=8"><img src="https://is3-ssl.mzstatic.com/image/thumb/Purple69/v4/ec/f3/e3/ecf3e33d-594b-0442-1d97-cabcf704cc2c/mzl.pssxaast.png/340x340bb-80.png" alt="MTV Trax" width="120" height="120"></a>
+        </div>
+        <div class="portfolio-item-blurb">
+            <div>20K monthly users</div>
+            <div>9K paying users</div>
+            <div>4.5 stars</div>
+        </div>
+    </div>
+    <div class="portfolio-item">
+        <div class="portfolio-item-icon">
+            <a href="https://itunes.apple.com/us/app/o2-tracks/id595423926?ls=1&mt=8"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple3/v4/c9/2f/71/c92f71bd-ae69-6a2c-68a6-dbfa7f788691/pr_source.png/340x340bb-80.png" alt="O2 Tracks" width="120" height="120"></a>
+        </div>
+        <div class="portfolio-item-blurb">
+            <div>2M downloads</div>
+            <div>180M plays</div>
+            <div>7K daily users</div>
+        </div>
+    </div>
+    <div class="portfolio-item">
+        <div class="portfolio-item-icon">
+            <a href="http://itunes.apple.com/gb/app/ocado-2012/id519722397/"><img src="https://is4-ssl.mzstatic.com/image/thumb/Purple113/v4/c5/f4/7d/c5f47d87-4a1f-ed94-ad61-f2c9bebca95b/AppIcon-0-0-1x_U007emarketing-0-0-0-9-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/230x0w.jpg" alt="Ocado" width="120" height="120"></a>
+        </div>
+        <div class="portfolio-item-blurb">
+            <div>iOS</div>
+            <div>Windows Phone</div>
+            <div>Android</div>
+        </div>
+    </div>
+</div>
+
+##I've been
+
+######Product & Team Lead
+Music startup (2013-2017)
+___#product #agile #architect #lead #api #remote___
+Team lead of a five person iOS team, some of whom worked remote. Typical startup juggling, multiple responsibilities. Promoted to Product Owner.
+
+######Mobile & JAVA Developer 
+Ocado (2012 - 2009)
+___#objc #iOS #c-sharp #wp7 #android #SCRUM #J2EE___
+Jave Engineer, Windows Phone early-adopter, Android tinkerer, iOS convert.
+
+######System Administrator
+National Bioinformatics Network (2008 - 2006)
+___#python #perl #mathematica #ubuntu___
+Linux administrator, python hacker, bioinformatic enthusiast.
+
+######Junior JAVA Developer
+Content Delivery (2005 - 2004)
+___#java #j2ee #swing___
+First job. First startup. First failure.
+
+##I'm certified
+
+- SCRUM Masters Course [Skills Matter 2011]
+- BSc. Honours Computer Science, Cum Laude (1st) [University of KwaZulu-Natal 2002]
+2014-11-13 22:00:00|A Cocoapods xCode tutorial.|a-cocoapods-xcode-tutorial|_Whether you're developing an iOS or Mac application, if you're not using [Cocoapods](http://www.cocoapods.org) then you're simply doing it wrong!_ Ok, maybe not _wrong_, but you're definitely not developing as fast or effectively as possible.
+
+Cocoapods manages third-party library dependencies for Xcode projects. It allows stand alone projects to ___easily___ access hundreds of open-source libraries, while also giving development teams the ability to ___automatically___ and ___safely___ work together.
+
+- ___Easy___ - Simply add a single file to the xCode project's root folder and you're ready to go.
+- ___Automatic___ - Run a single command and your project will be setup with the same libraries used by the rest of your team.
+- ___Safe___ - Cocoapods's use of [semantic versioning](http://semver.org/) ensures that you'll only get the library updates you want and trust. Future updates are propagated across the team ensuring that everyone is working on exactly the same code base.
+
+## Getting started
+
+Head over to Cocoapods's [getting started](http://guides.cocoapods.org/using/getting-started.html) guide for instructions on downloading and installing the `pod` command line tool.
+
+Inside your Xcode project's root folder run the following commands.
+
+- Run `touch Podfile` to create an empty pod file
+- Run `pod install` to add Cocoapods to your project
+- Run `open YourProject.xcworkspace` to your new Xcode project's workspace.
+
+![enter image description here](https://googledrive.com/host/0B9_o9wJ25OmFZFhoRWxiOTVDUGs/ajmccall/a-cocoapods-xcode-tutorial/binpress_cocoapods_01.png)
+
+Notice the new ___pods___ project that has been added to your Xcode project's workspace. It is empty for now.
+
+![enter image description here](https://googledrive.com/host/0B9_o9wJ25OmFZFhoRWxiOTVDUGs/ajmccall/a-cocoapods-xcode-tutorial/binpress_cocoapods_02.png)
+
+## Finding and installing a pod
+
+Now that we have a Cocoapods-enabled Xcode project, we can add third-party libraries to it. For this demo, let's add the [Facebook's iOS SDK](https://developers.facebook.com/docs/ios) in order to implement a Facebook login feature.
+
+To find the Facebook library, we use the [Cocoapods](http://cocoapods.org) web search bar. Simply type `Facebook` in the search bar and find the pod best suited to your needs. You can always click on the `site` link to see who owns this pod.
+
+![enter image description here](https://googledrive.com/host/0B9_o9wJ25OmFZFhoRWxiOTVDUGs/ajmccall/a-cocoapods-xcode-tutorial/binpress_cocoapods_03.png)
+
+Copy the pod spec text to your clipboard, and paste it into your `Podfile`.
+
+![enter image description here](https://googledrive.com/host/0B9_o9wJ25OmFZFhoRWxiOTVDUGs/ajmccall/a-cocoapods-xcode-tutorial/binpress_cocoapods_04.png)
+
+Then run `pod install`
+
+![enter image description here](https://googledrive.com/host/0B9_o9wJ25OmFZFhoRWxiOTVDUGs/ajmccall/a-cocoapods-xcode-tutorial/binpress_cocoapods_05.png)
+
+...and open your Xcode project's workspace.
+
+Notice that the ___pods___ project now contains a few new targets. These will be the targets to compile and build the Facebook SDK and any libraries it depends on.
+
+![enter image description here](https://googledrive.com/host/0B9_o9wJ25OmFZFhoRWxiOTVDUGs/ajmccall/a-cocoapods-xcode-tutorial/binpress_cocoapods_06.png)
+
+Notice too that we have not performed any configuration within our Xcode project. All necessary core frameworks have been added, additional pod dependencies resolved and our main project is now aware of the new Facebook pod.
+
+For more information on what was installed and how, checkout the [pod specification file](http://guides.cocoapods.org/syntax/podspec.html) listed for the [Facebook-iOS-SDK](https://github.com/CocoaPods/Specs/blob/master/Specs/Facebook-iOS-SDK/3.16.2/Facebook-iOS-SDK.podspec.json) pod.
+
+## Using a pod
+
+Remember that each pod could require configuration before use. For more information on each pod and how it's used, consult that pod's website via [Cocoapods](http://cocoapods.org).
+
+Following the [Facebook Login](https://developers.facebook.com/docs/facebook-login/ios/v2.1) documentation, we're required to add a Facebook app id our project's `info.plist` file.
+
+And now the fun part of implementing a simple Facebook login. Add a `UIView` component to our storyboard's first view controller and change that component's class from `UIView` to `FBLoginView` using the Identity Inspector (`⌥⌘3` keyboard shortcut)
+
+![enter image description here](https://googledrive.com/host/0B9_o9wJ25OmFZFhoRWxiOTVDUGs/ajmccall/a-cocoapods-xcode-tutorial/binpress_cocoapods_07.png)
+
+Enhance our login view controller (optional).
+
+![enter image description here](https://googledrive.com/host/0B9_o9wJ25OmFZFhoRWxiOTVDUGs/ajmccall/a-cocoapods-xcode-tutorial/binpress_cocoapods_08.png)
+
+Run the application.
+
+If you've correctly added the Facebook app id to your project, when a user hits the 'Log in with Facebook' button, they'll be presented with the most appropriate Facebook login view.
+
+![enter image description here](https://googledrive.com/host/0B9_o9wJ25OmFZFhoRWxiOTVDUGs/ajmccall/a-cocoapods-xcode-tutorial/binpress_cocoapods_sim_01.png)
+
+You may log in to Facebook, and because we're using Facebook's native view, our users can log out, too.
+
+![enter image description here](https://googledrive.com/host/0B9_o9wJ25OmFZFhoRWxiOTVDUGs/ajmccall/a-cocoapods-xcode-tutorial/binpress_cocoapods_sim_04.png)
+
+While this is a very simple application, it should not take away from what's been achieved here. With almost no effort, we've added the entire Facebook SDK to our project. This involved, among other things:
+
+- Downloading Facebook SDK code and any other libraries dependent on it.
+- Adding all necessary core frameworks to the project.
+- Compiling all source code to work within your project's target platform and architecture.
+- Making all public headers and compiled source available to your project's targets.
+
+We have used Cocoapods to decrease the amount of time configuring, and increase the amount of time coding.
+
+## Updating a pod
+
+In this tutorial we installed the Facebook SDK by adding the following to the `Podfile`.
+
+`pod 'Facebook-iOS-SDK', '~> 3.16'`
+
+This tells the pod command tool to install the latest version of the `Facebook-iOS-SDK` pod version 3.16.x and up to but not including 3.17. Below is a complete list of pod versioning operators [[1]](http://guides.cocoapods.org/syntax/podfile.html#pod)
+
+> *   `> 0.1` Any version higher than 0.1.
+> *   `>= 0.1` Version 0.1 and any higher version.
+> *   `< 0.1` Any version lower than 0.1.*   `<= 0.1` Version 0.1 and any lower version.
+> *   `~> 0.1.2` Version 0.1.2 and the versions up to 0.2, not including 0.2. This operator works based on the last component that you specify in your version requirement. The example is equal to >= 0.1.2 combined with &lt; 0.2.0 and will always match the latest known version matching your requirements.
+
+When it comes time to upgrade to a newer version of any pod, simply run the command `pod outdated`.
+
+![enter image description here](https://googledrive.com/host/0B9_o9wJ25OmFZFhoRWxiOTVDUGs/ajmccall/a-cocoapods-xcode-tutorial/binpress_cocoapods_10.png)
+
+It will alert you to any new version of your installed pods. You can then run  `pod update` to update all pods or  `pod update <pod_name>`  to update individual pods.
+
+![enter image description here](https://googledrive.com/host/0B9_o9wJ25OmFZFhoRWxiOTVDUGs/ajmccall/a-cocoapods-xcode-tutorial/binpress_cocoapods_11.png)
+
+You may notice that if you change a pod's version within your `Podfile` and run `pod install` again, you'll always get the same version that you installed the first time.
+
+This is because on first install, a special `Podfile.lock` file is created. This file "locks" the versions of all pods at the first time of installation. `Podfile.lock` should ideally not be edited. Use `pod update` to update your pods. More on this in the next section.
+
+## Working in a team
+
+If you're working in a team, you'll want to push your changes to your fellow developers. Any pod-enabled Xcode project should look something like this.
+
+![enter image description here](https://googledrive.com/host/0B9_o9wJ25OmFZFhoRWxiOTVDUGs/ajmccall/a-cocoapods-xcode-tutorial/binpress_cocoapods_09.png)
+
+All that's required to get your fellow developers using this new pod is to commit the following two files.
+
+ - `Podfile` the file that describes how pod was initially setup
+ - `Podfile.lock` the file that describes the current state of the pod project
+
+When a team member pulls your new changes, they simply need to run `pod install`. This will install all pods specified in `Podfile` and install the versions of those pods specified in the `Podfile.lock`.
+
+The combination of a `Podfile` and `Podfile.lock` ensure that every member of your team is working off exactly the same third-party code base as you are.
+
+## Popular pods
+
+All mainstream and popular open-source libraries are available on [Cocoapods.org](http://cocoapods.org) as this is becoming the de facto mechanism to manage and install third-party libraries.
+
+Below are some popular, almost essential pods to use
+
+- [AFNetworking](http://cocoapods.org/?q=afnetworking): The only framework to use for your networking needs.
+- [OCMock](http://cocoapods.org/?q=ocmock): Your one-stop unit test mock framework.
+- [Facebook-iOS-SDK](http://cocoapods.org/?q=facebook-ios-sdk): Maintained by Facebook, so you know it's legit.
+- [Google](http://cocoapods.org/?q=google-ios): All things Google.
+- [Custom ViewController](http://cocoapods.org/?q=viewcontroller)
+- [API Integrations](http://cocoapods.org/?q=api)
+- And [loads](https://github.com/CocoaPods/Specs) more.
+
+Thanks for reading!
+</div></body></html>
