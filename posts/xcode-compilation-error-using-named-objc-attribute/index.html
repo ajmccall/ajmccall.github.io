@@ -1,1 +1,33 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="og:site_name" content="alasda.ir"/><link rel="canonical" href="https://alasda.ir/posts/xcode-compilation-error-using-named-objc-attribute"/><meta name="twitter:url" content="https://alasda.ir/posts/xcode-compilation-error-using-named-objc-attribute"/><meta name="og:url" content="https://alasda.ir/posts/xcode-compilation-error-using-named-objc-attribute"/><title>xcode-compilation-error-using-named-objc-attribute | alasda.ir</title><meta name="twitter:title" content="xcode-compilation-error-using-named-objc-attribute | alasda.ir"/><meta name="og:title" content="xcode-compilation-error-using-named-objc-attribute | alasda.ir"/><meta name="description" content="xCode compilation error using named @objc attribute"/><meta name="twitter:description" content="xCode compilation error using named @objc attribute"/><meta name="og:description" content="xCode compilation error using named @objc attribute"/><meta name="twitter:card" content="summary"/><link rel="stylesheet" href="/styles.css" type="text/css"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><link rel="shortcut icon" href="/images/favicon.png" type="image/png"/><link rel="alternate" href="/feed.rss" type="application/rss+xml" title="Subscribe to alasda.ir"/><meta name="twitter:image" content="https://alasda.ir/images/profile.png"/><meta name="og:image" content="https://alasda.ir/images/profile.png"/></head></html>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="og:site_name" content="alasda.ir"/><link rel="canonical" href="https://alasda.ir/posts/xcode-compilation-error-using-named-objc-attribute"/><meta name="twitter:url" content="https://alasda.ir/posts/xcode-compilation-error-using-named-objc-attribute"/><meta name="og:url" content="https://alasda.ir/posts/xcode-compilation-error-using-named-objc-attribute"/><title>xcode-compilation-error-using-named-objc-attribute | alasda.ir</title><meta name="twitter:title" content="xcode-compilation-error-using-named-objc-attribute | alasda.ir"/><meta name="og:title" content="xcode-compilation-error-using-named-objc-attribute | alasda.ir"/><meta name="description" content="xCode compilation error using named @objc attribute"/><meta name="twitter:description" content="xCode compilation error using named @objc attribute"/><meta name="og:description" content="xCode compilation error using named @objc attribute"/><meta name="twitter:card" content="summary"/><link rel="stylesheet" href="/styles.css" type="text/css"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><link rel="shortcut icon" href="/images/favicon.png" type="image/png"/><link rel="alternate" href="/feed.rss" type="application/rss+xml" title="Subscribe to alasda.ir"/><meta name="twitter:image" content="https://alasda.ir/images/profile.png"/><meta name="og:image" content="https://alasda.ir/images/profile.png"/></head><body class="item-page"><header><div class="wrapper"><a href="/" class="site-name">Alasdair McCall</a></div></header><div class="wrapper"><article><div class="content"><p>I recently stumbled on this interesting issue and decided to jot it down.</p><h3>@objc</h3><p>xCode allows <a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/BuildingCocoaApps/MixandMatch.html">mix and matching</a> Swift and Objective-c code within a single project.</p><p>A Swift file's functionality is exposed to Objective-c classes via the <code>@objc</code> attribute as such</p><pre><code>@objc public class SimpleSwift : NSObject {
+
+}
+</code></pre><p>When compiled, xCode will generate an Objective-c interface for this Swift class in an auto-generated interface <code>$(SWIFT_MODULE_NAME)-Swift.h</code>. This file will contain something that looks like this</p><pre><code>SWIFT_CLASS("_TtC14SwiftObjcSwift11SimpleSwift")
+@interface SimpleSwift : NSObject
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+</code></pre><p>Additionally we can use <code>objc(name)</code> to control the generated interface <em>name</em>. This can be useful in a few places. For instance at <a href="http://trainline.com">Trainline.com</a> we do this to maintain our the Objective-c style naming convention of <code>XXXClassName</code> of our legacy codebase.</p><p>This test Swift class becomes</p><pre><code>@objc(SOSSimpleSwift) public class SimpleSwift : NSObject {
+
+}
+</code></pre><p>Now the auto-generated interface becomes</p><pre><code>SWIFT_CLASS_NAMED("SimpleSwift")
+@interface SOSSimpleSwift : NSObject
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+</code></pre><h3>The Issue</h3><p>Now let's use this interface in an Objective-c class and then extend that in a Swift file.</p><pre><code class="language-swift">#import &lt;Foundation/Foundation.h&gt;
+@class SOSSimpleSwift;
+
+@interface SOSBaseObjc : NSObject
+
+- (void)foo:(SOSSimpleSwift *)simpleSwift;
+- (void)bar:(NSString *)aString;
+
+@end
+</code></pre><p>A Swift subclass</p><pre><code class="language-swift">class ExtendedSwift : SOSBaseObjc {
+
+    // This method declaration will not compile
+    override func foo(_ simpleSwift: SOSSimpleSwift!) {
+    }
+    
+    override func bar(_ aString: String!) {
+    }
+}
+</code></pre><h3>Solution</h3><p>The only solution at time of writing is dropping the <em>name</em> from <code>@objc(name)</code> attribute.</p><p>My good friend <a href="https://twitter.com/defragged">Mark</a> may have an answer from his stint at WWDC.</p></div><span>Tagged with: </span></article></div></body></html>

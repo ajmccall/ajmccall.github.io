@@ -1,1 +1,103 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="og:site_name" content="alasda.ir"/><link rel="canonical" href="https://alasda.ir/posts/how-to-write-a-unit-test"/><meta name="twitter:url" content="https://alasda.ir/posts/how-to-write-a-unit-test"/><meta name="og:url" content="https://alasda.ir/posts/how-to-write-a-unit-test"/><title>how-to-write-a-unit-test | alasda.ir</title><meta name="twitter:title" content="how-to-write-a-unit-test | alasda.ir"/><meta name="og:title" content="how-to-write-a-unit-test | alasda.ir"/><meta name="description" content="How to write clean code unit test (#1)"/><meta name="twitter:description" content="How to write clean code unit test (#1)"/><meta name="og:description" content="How to write clean code unit test (#1)"/><meta name="twitter:card" content="summary"/><link rel="stylesheet" href="/styles.css" type="text/css"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><link rel="shortcut icon" href="/images/favicon.png" type="image/png"/><link rel="alternate" href="/feed.rss" type="application/rss+xml" title="Subscribe to alasda.ir"/><meta name="twitter:image" content="https://alasda.ir/images/profile.png"/><meta name="og:image" content="https://alasda.ir/images/profile.png"/></head></html>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="og:site_name" content="alasda.ir"/><link rel="canonical" href="https://alasda.ir/posts/how-to-write-a-unit-test"/><meta name="twitter:url" content="https://alasda.ir/posts/how-to-write-a-unit-test"/><meta name="og:url" content="https://alasda.ir/posts/how-to-write-a-unit-test"/><title>how-to-write-a-unit-test | alasda.ir</title><meta name="twitter:title" content="how-to-write-a-unit-test | alasda.ir"/><meta name="og:title" content="how-to-write-a-unit-test | alasda.ir"/><meta name="description" content="How to write clean code unit test (#1)"/><meta name="twitter:description" content="How to write clean code unit test (#1)"/><meta name="og:description" content="How to write clean code unit test (#1)"/><meta name="twitter:card" content="summary"/><link rel="stylesheet" href="/styles.css" type="text/css"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><link rel="shortcut icon" href="/images/favicon.png" type="image/png"/><link rel="alternate" href="/feed.rss" type="application/rss+xml" title="Subscribe to alasda.ir"/><meta name="twitter:image" content="https://alasda.ir/images/profile.png"/><meta name="og:image" content="https://alasda.ir/images/profile.png"/></head><body class="item-page"><header><div class="wrapper"><a href="/" class="site-name">Alasdair McCall</a></div></header><div class="wrapper"><article><div class="content"><p>It's become intuitive that writing unit tests is a good thing. It's less intuitive why it's important to have clean, maintainable unit test code. It is perhaps even more important the clean, maintainable production code. Why? Imagine this scenario...</p><p>&gt;After a disastrous few releases, the development team decide in their retro that they want to sufficiently cover the code base to prevent further bugs. Their PM, begrudgingly, gives them 1 month to retroactively write tests.<br><br>&gt;The developers feel that since they are not writing production code, they can write quick and unstructured unit test code.</p><blockquote><p>After 1 month, both developers and the PM are happy. Developers because they have 85% coverage. The PM because he has stable code base.</p></blockquote><blockquote><p>As time progresses though, the team may as well have not spent that 1 month in the first place. New developers battle to read the unit tests and can't add to them. While new features, either break the unit tests, in which case the tests are commented out, or are simply not added due to the overheard of refactoring the unit test class.</p></blockquote><p>As the scenario above highlights, once a team is committed to writing unit tests, it is vital to keep that code base as well maintained, <strong><em>or better</em></strong>, as your production code.</p><p>As Uncle Bob puts it better</p><blockquote><p>[asymmetrical]. The quality of the production code depends on the tests; but the quality of the tests is <em>independent</em> of the production code.</p></blockquote><p>In this two parter, I'll demonstrate how I like to structure my unit tests and show you some of the rules and conventions to use to make your unit tests readable, reusable and maintainable.</p><p>-- --</p><p>####The setup</p><p>Below is a simplified version of a real world class called <code>AppStoreRater</code>. This class prompts users to rate our app (<a href="http://www.mtvtrax.com">MTV Trax</a>) after a certain number of tracks have been played.</p><pre><code class="language-objc">@interface AppStoreRater : NSObject
+
+@property (nonatomic, strong) AlertManager *alertManager;
+@property (nonatomic, strong) Analytics *analytics;
+@property (nonatomic, weak) id&lt;PlaybackNotifier&gt; playbackNotifier; 
+
+@end
+</code></pre><p>It is not important to explain how to use this class except perhaps to mention that the property <code>PlaybackNotifier</code> is used to "tell" <code>AppStoreRater</code> when a track has been played. After a set number of plays, the "Please rate this app" popup dialogue will appear.</p><p><code>PlaybackNotifier</code> follows the observer pattern and has the follow methods</p><pre><code class="language-objc">- (void)addObserver:(id&lt;PlaybackObserver&gt;)observer;
+- (void)removeObserver:(id&lt;PlaybackObserver&gt;)observer;
+</code></pre><p>####The skeleton unit test A skeleton unit test class is given below, and although it contains no tests yet, it is still performing validations.</p><pre><code class="language-objc">@interface TestAppStoreRater : XCTestCase
+
+// use class properties as often as you can 
+@property (nonatomic, strong) id mockAlertManager;
+@property (nonatomic, strong) id mockAnalytics;
+@property (nonatomic, strong) id mockPlaybackNotifier;
+
+// only 1 object, your tested class, should be real
+@property (nonatomic, strong) AppStoreRater *appStoreRater;
+@end
+
+@implementation TestAppStoreRater
+
+#pragma mark - Test
+
+#pragma mark - SetUp
+
+- (void)setUp {
+    [super setUp];
+    
+    // order of setUp, should mirror order of tearDown
+    [self setUpAlertManager];
+    [self setUpAnalytics];
+    [self setUpPlaybackNotifier];
+
+
+    // only 1 object, your tested class, should be real
+    self.appStoreRater = [[AppStoreRater alloc] init];
+    self.appStoreRater.alertManager = self.mockAlertManager;
+    self.appStoreRater.analytics = self.mockAnalytics;
+}
+
+- (void)setUpAlertManager {
+    
+    // always use STRICT mocks if possible
+    self.mockAlertManager = OCMStrictClassMock([AlertManager class]);
+}
+
+- (void)setUpAnalytics {
+    
+    self.mockAnalytics = OCMStrictClassMock([AnalyticsController class]);
+}
+
+- (void)setUpPlaybackNotifier {
+
+    self.mockPlaybackNotifier = OCMStrictProtocolMock(@protocol(PlaybackNotifier));
+
+    // We expect that AppStoreRater always adds and removes  
+    // itself as an observer during it's lifecycle.
+    OCMExpect(self.mockPlaybackNotifier addObserver:[OCMArgs any]);
+    OCMExpect(self.mockPlaybackNotifier removeObserver:[OCMArgs any]);
+}
+
+#pragma mark - TearDown
+
+- (void)tearDown {
+    
+    // order of tearDown, should mirror order of setUp
+    self.appStoreRater = nil;
+    [self tearDownPlaybackNotifier];
+    [self tearDownAnalytics];
+    [self tearDownAlertManager];
+    
+    [super tearDown];
+}
+
+- (void)tearDownPlaybackNotifier {
+    
+    OCMVerifyAll(self.mockPlaybackNotifier);
+    self.mockPlaybackNotifier = nil;
+}
+
+- (void)tearDownAnalytics {
+    
+    OCMVerifyAll(self.mockAnalytics);
+    self.mockAnalytics = nil;
+}
+
+- (void)tearDownAlertManager {
+    
+    OCMVerifyAll(self.mockAlertManager);
+    self.mockAlertManager = nil;
+}
+@end
+</code></pre><p>Some things to note to go with the commented sections</p><p>######Only ever have one real object There should only ever be one class that is initialised, and that is class the one you are testing. <code>AppStoreRater</code>. All other classes should be mocked.</p><p><em>I use <a href="http://ocmock.org/">OCMock</a> for objective-c</em></p><p>######Have as many properties as you can</p><p>Class properties, created in <code>setUp</code> and then verified and torn down in <code>tearDown</code> save you loads of repetitive code. Mocked class properties can still be mocked with <code>expected</code> behaviours in the test methods themselves, but you will see that <code>OCMVerifyAll(mock)</code> is called in the <code>tearDown</code>.</p><p><em>This makes you unit test classes more readable and maintainable.</em></p><p>######Use STRICT over PARTIAL mocks It is generally always better to use <em>strict</em> mocks over <em>partial</em> mocks. A strict mock will throw an exception if any unexpected method or property is called, while a partial mock will return <code>nil</code> or do nothing.</p><p><em>Partial mocks hide bugs. If you can't use a strict mock, then it probably suggests your class isn't structured right.</em></p><p>######SetUp and TearDown mirror each other The order of setting up and tearing down of the mocks and tested class is important. Notice that in <code>tearDown</code>, the objects are being nilled in the reverse order to their creation in <code>setup</code>. This is an important habit to get into, as it allows mocked objects modified during the tested class's lifecycle to verify those actions.</p><p>Perhaps a worked example will explain better.</p><p>Remember that <code>AppStoreRater</code> adds itself as an observer of <code>playbackNotifier</code> when that property is set. It also removes itself as an observer during <code>dealloc</code> when the <code>AppStoreRater</code> object is destroyed.</p><p>I our <code>tearDown</code> method</p><pre><code class="language-objc">- (void)tearDown {
+    
+    self.appStoreRater = nil;
+</code></pre><p><code>self.appStoreRater = nil</code> will call <code>dealloc</code> on our tested class</p><pre><code class="language-objc">- (void)dealloc {
+    [self.playbackNotifier removeObserver:self]
+}
+</code></pre><p>Since <code>self.playbackNotifier</code> is a mock object itself. It must not be <code>nil</code> so we can record the call to <code>removeObserver:</code>. This method call is verified moments later in</p><pre><code class="language-objc">- (void)tearDownPlaybackNotifier {
+    
+    OCMVerifyAll(self.mockPlaybackNotifier);
+</code></pre><p><em>Even if your tested class doesn't have observers or use <code>NSNotificationCenter</code> getting the <code>setUp</code> and <code>tearDown</code> order right is just a good habit to get into.</em></p><p>######Follow clean code practises Follow all clean code practises. Break up the code into well named short methods. Groups methods that call one another close together. And in <code>objc</code> use <code>pragma mark</code> to make it easier to skim read the class. -- --</p><p>Right, so now we have a good unit test skeleton to work with. I part two we'll discuss how to implement the test methods.</p></div><span>Tagged with: </span></article></div></body></html>
