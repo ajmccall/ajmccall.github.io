@@ -165,14 +165,15 @@ a {
     display: inline-block;
 }
 
-.find-me li img {
-    height: 50px;
-    width: 50px;
+.find-me li p {
+  display: inline-block;
+  vertical-align: bottom;
 }
 
 .find-me li svg {
     height: 50px;
     width: 50px;
+    margin-right: 8px;
 }
 
 .portfolio {
