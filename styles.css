@@ -178,6 +178,7 @@ a {
 
 .portfolio {
     list-style: none;
+    max-width: 600px;
 }
 
 .portfolio li {
