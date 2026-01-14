@@ -1,0 +1,274 @@
+---
+date: 2021-08-23 17:37
+description:
+title: Resume: Alasdair McCall
+tags: resume
+---
+
+# I'm currently
+### Mobile App - Technology Lead / Technical Product Owner
+<p class="resume-company">Travelex - Since 2023</p>
+<ul class="resume-skills">
+    <li>#swift</li>
+    <li>#android</li>
+    <li>#fastLane</li>
+    <li>#dataDog</li>
+    <li>#googleAnalytics</li>
+    <li>#cirlceCI</li>
+    <li>#gitHub</li>
+    <li>#whiteLabel</li>
+    <li>#figma</li>
+    <li>#finTech</li>
+    <li>#postMan</li>
+    <li>#3DSecure</li>
+    <li>#reactNative</li>
+    <li>#technicalProductOwner</li>
+    <li>#replatforming</li>
+    <li>#SLDC</li>
+</ul>
+
+As the _Mobile App Technology Lead_ at Travelex, I spearheaded key initiatives to stabilize and modernize their native mobile applications, resulting in significant improvements in performance, user experience, and conversion rates. 
+
+More recently I guided Travelex's app transformation, migrating their legacy applications (iOS and Android) to a modern, high-performant React Native codebase. My role transitioned to _Mobile App Technology Product Owner_.
+
+#### Achievements
+
+📱 _Led native app team_. 14 direct reports, myself reporting to Product Director
+
+🗺️ _Developed app roadmap and strategy_ for board and stakeholders
+
+🤖 _Reduced release cycles_ from quarterly to weekly via CI/CD automation
+
+💳 _Halved payment failure rates_ (KPI) from 30% to 15% through code analysis and improvements
+
+📈 _Improved team performace_ introducing modern Agile methodology and rituals 
+
+📅 _Led Travelex's app digital transformation_, releasing the next-generation cross-platform app on time and within budget through expert domain understanding, planning, and execution
+
+🛍️ _Improved key conversion metric_ by 50% via UX improvements and optimizing API usage
+
+⛑️ Achieved a _99.96% crash-free rate_, ensuring a stable and reliable user experience
+
+⬇️ _Decreased onboarding drop-off rates_ from 35% to 8% by analyzing user data to address flow pain points
+
+🛡️ Maintained _security and regulatory compliance_ (annual penetration tests, PCI, and C&R assessments) by proactively integrating security requirements and industry best practices
+
+# I am
+A mobile app expert with over a decade of experience crafting high-impact products in London's vibrant tech scene. I've spearheaded successful projects as an _app developer_, _tech lead_ and _engineering manager_, guiding teams and shaping technology in both large enterprises and dynamic startups.
+
+I am equally comfortable in large enterprises as part of highly integrated teams, and in the start-up space working closely with founders and CTOs. 
+
+I enjoy the finer aspects of programming as a craft; clean code, product focused apps, test driven development, new languages, tools and ideas.
+
+As a manager of engineers, I thrive on helping diverse teams pull in the same direction through agile methodologies, constructive feedback, and targeted mentoring, empowering individuals and cultivating a positive, high-performing environment. 
+
+In between I'm a ferocious podcast listener, especially while cycling. Sometimes I play guitar or kick a hacky sack. I love ~~Stack Overflow~~  GenAI and Brew Dog beers.
+
+### Spare Time
+<ul class="resume-skills">
+    <li>#swift</li>
+    <li>#kotlin</li>
+    <li>#kotlinMultiPlatform</li>
+    <li>#architecture</li>
+</ul> 
+
+Beyond my day job, I'm exploring the latest trends and technologies in mobile development. Recently, I've been fascinated by [Kotlin Multiplatform (KMP)](https://kotlinlang.org/lp/mobile/) and its potential to enable native and scalable applications without duplicating code bases. 
+
+This interest fuels my personal project, Garnish – an interactive podcast app that leverages KMP and explores innovative approaches to native app architecture.
+
+When the moment strikes, I throw a few words down on my blog [http://alasda.ir](http://alasda.ir)
+
+# I'm here
+You can find me online here.
+
+<ul class="find-me">
+    <li>
+        <a href="https://alasda.ir">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc. --><path d="M64 0C28.7 0 0 28.7 0 64L0 352c0 35.3 28.7 64 64 64l176 0-10.7 32L160 448c-17.7 0-32 14.3-32 32s14.3 32 32 32l256 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-69.3 0L336 416l176 0c35.3 0 64-28.7 64-64l0-288c0-35.3-28.7-64-64-64L64 0zM512 64l0 224L64 288 64 64l448 0z"/></svg>
+        </a>
+    </li>
+    <li>
+        <a href="mailto:alasdair.mccall@gmail.com">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M256 64C150 64 64 150 64 256s86 192 192 192c17.7 0 32 14.3 32 32s-14.3 32-32 32C114.6 512 0 397.4 0 256S114.6 0 256 0S512 114.6 512 256v32c0 53-43 96-96 96c-29.3 0-55.6-13.2-73.2-33.9C320 371.1 289.5 384 256 384c-70.7 0-128-57.3-128-128s57.3-128 128-128c27.9 0 53.7 8.9 74.7 24.1c5.7-5 13.1-8.1 21.3-8.1c17.7 0 32 14.3 32 32v80 32c0 17.7 14.3 32 32 32s32-14.3 32-32V256c0-106-86-192-192-192zm64 192c0-35.3-28.7-64-64-64s-64 28.7-64 64s28.7 64 64 64s64-28.7 64-64z"/></svg>
+        </a>
+    </li>
+    <li>
+        <a href="http://github.com/ajmccall">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+        </a>
+    </li>
+    <li>
+        <a href="http://stackoverflow.com/users/179843/ajmccall">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M290.7 311L95 269.7 86.8 309l195.7 41zm51-87L188.2 95.7l-25.5 30.8 153.5 128.3zm-31.2 39.7L129.2 179l-16.7 36.5L293.7 300zM262 32l-32 24 119.3 160.3 32-24zm20.5 328h-200v39.7h200zm39.7 80H42.7V320h-40v160h359.5V320h-40z"/></svg>
+        </a>
+    </li>
+    <li>
+        <a href="https://bsky.app/profile/alasda.ir">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc. --><path d="M111.8 62.2C170.2 105.9 233 194.7 256 242.4c23-47.6 85.8-136.4 144.2-180.2c42.1-31.6 110.3-56 110.3 21.8c0 15.5-8.9 130.5-14.1 149.2C478.2 298 412 314.6 353.1 304.5c102.9 17.5 129.1 75.5 72.5 133.5c-107.4 110.2-154.3-27.6-166.3-62.9l0 0c-1.7-4.9-2.6-7.8-3.3-7.8s-1.6 3-3.3 7.8l0 0c-12 35.3-59 173.1-166.3 62.9c-56.5-58-30.4-116 72.5-133.5C100 314.6 33.8 298 15.7 233.1C10.4 214.4 1.5 99.4 1.5 83.9c0-77.8 68.2-53.4 110.3-21.8z"/></svg>        
+        </a>
+    </li>
+</ul>
+
+# I've done
+
+<ul class="portfolio">
+    <li>
+        <img src="/images/portfolio/travelex.png" alt="Travelex Travel Money"/>
+        <ul class="portfolio-item-description">
+            <li>- Fin Tech</li>
+            <li>- Forex Trading</li>
+            <li>- Global</li>
+        </ul>
+    </li>
+    <li>
+        <img src="/images/portfolio/AppIconAsda.png" alt="Asda Travel Money"/>
+        <ul class="portfolio-item-description">
+            <li>- Branded</li>
+            <li>- White Label</li>
+            <li>- 60K MAU</li>
+        </ul>
+    </li>
+    <li>
+        <img src="/images/portfolio/trainline.jpg" alt="Trainline app logo"/>
+        <ul class="portfolio-item-description">
+            <li>- #1 Travel App</li>
+            <li>- Massive Scale</li>
+            <li>- Product Driven</li>
+        </ul>
+    </li>
+    <li>
+        <img src="/images/portfolio/mtvtrax.png" alt="MTV Trax app logo"/>
+        <ul class="portfolio-item-description">
+            <li>- 20K MAU</li>
+            <li>- Brand Recog</li>
+            <li>- 4.5 ⭐️ App</li>
+        </ul>
+    </li>
+    <li>
+        <img src="/images/portfolio/viou.jpeg" alt="VIOU app logo"/>
+        <ul class="portfolio-item-description">
+            <li>- Live Streaming</li>
+            <li>- Shopping</li>
+            <li>- Full stack</li>
+        </ul>
+    </li>
+    <li>
+        <img src="/images/portfolio/jungle-spins.png" alt="Jungle Spins app logo"/>
+        <ul class="portfolio-item-description">
+            <li>- 100% Native</li>
+            <li>- Multiple jurisdictions</li>
+            <li>- CI/CD Automation</li>
+        </ul>
+    </li>
+    <li>
+        <img src="/images/portfolio/ocado.png" alt="Ocado app logo"/>
+        <ul class="portfolio-item-description">
+            <li>- iOS</li>
+            <li>- Windows Phone</li>
+            <li>- Android</li>
+        </ul>
+    </li>
+</ul>
+
+# I've been
+
+### Technology Lead
+<p class="resume-company">VIOU - 2023</p>
+<ul class="resume-skills">
+    <li>#techLead</li> 
+    <li>#fullstack</li>
+    <li>#VOD</li>
+    <li>#liveStreaming</li>
+</ul>
+
+Led VIOU's technology team in developing a live luxury commerce platform, connecting brands with their devoted communities. I managed a small full-stack engineering team to build the next interactive online shopping app.
+
+Through close collaboration with Product and Marketing, we consistently explored the boundaries of online shopping, finding innovative ways to delight our users.
+
+### Head of Mobile
+<p class="resume-company">Markor Technology (2023 - 2021)</p>
+<ul class="resume-skills">
+    <li>#swift</li>
+    <li>#kotlin</li>
+    <li>#CI/CD</li>
+    <li>#pairProgramming</li>
+    <li>#unitTesting</li>
+    <li>#strategy</li> 
+    <li>#architecture</li> 
+    <li>#compliance</li> 
+    <li>#iGaming</li>
+</ul>
+
+Joined Markor Technology to support and grow their native iGaming mobile application stacks.
+
+I was responsible for guiding a young, small, and inexperienced team to produce higher-quality apps by implementing modern, enterprise-level processes and structures. This included establishing a product-driven development methodology, incorporating clean coding practices, and selecting an appropriate architecture for the company's size and ambitions.
+
+### Senior iOS Engineer
+<p class="resume-company">Trainline (2021 - 2017)</p>
+<ul class="resume-skills">
+    <li>#ios</li>
+    <li>#swift</li>
+    <li>#swiftui</li> 
+    <li>#pairProgramming</li>
+    <li>#unitTesting</li>
+    <li>#enterprise</li> 
+    <li>#delivery</li> 
+    <li>#architecture</li>
+</ul>
+
+As a Senior iOS Engineer at Trainline, I delivered high-frequency, high-quality features by collaborating with multi-talented, cross-functional teams. 
+
+My work spanned diverse areas, including payment systems integration, European operations, and UK growth features. This involved close collaboration with Product, Design, and Analytics to create optimal user experiences.
+
+### Product & Team Lead
+<p class="resume-company">Music start-up (2017-2013)</p>
+<ul class="resume-skills">
+    <li>#product</li>
+    <li>#agile</li>
+    <li>#architect</li>
+    <li>#lead</li>
+    <li>#api</li>
+    <li>#remote</li>
+</ul> 
+
+Team lead of a five person iOS team, some of whom worked remote. Typical start-up juggling, multiple responsibilities. Promoted to Technical Product Owner.
+
+### Mobile & JAVA Developer
+<p class="resume-company">Ocado (2012 - 2009)</p>
+<ul class="resume-skills">
+    <li>#objc</li>
+    <li>#iOS</li>
+    <li>#c-sharp</li>
+    <li>#wp7</li>
+    <li>#android</li>
+    <li>#SCRUM</li>
+    <li>#J2EE</li>
+</ul> 
+
+Java Engineer, Windows Phone early-adopter, Android tinkerer, iOS convert.
+
+### System Administrator
+<p class="resume-company">National Bioinformatics Network (2008 - 2006)</p>
+
+<ul class="resume-skills">
+    <li>#python</li>
+    <li>#perl</li>
+    <li>#mathematica</li>
+    <li>#ubuntu</li>
+</ul> 
+
+Linux administrator, python hacker, bioinformatic enthusiast.
+
+### Junior JAVA Developer
+<p class="resume-company">Content Delivery (2005 - 2004)</p>
+<ul class="resume-skills">
+    <li>#java</li>
+    <li>#j2ee</li>
+    <li>#swing</li>
+</ul> 
+First job. First start-up. First failure.
+
+# I'm certified
+SCRUM Masters Course [Skills Matter 2011]
+
+BSc. Honours Computer Science, Cum Laude (1st) [University of KwaZulu-Natal 2002]
