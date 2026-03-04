@@ -1,17 +1,31 @@
+---
+interface Props {
+	title?: string;
+	description?: string;
+	canonical?: string;
+}
+
+const {
+	title = 'Alasdair McCall | alasda.ir',
+	description = "Alasdair's blog and resume",
+	canonical = 'https://alasda.ir',
+} = Astro.props;
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="og:site_name" content="alasda.ir" />
-		<link rel="canonical" href="https://alasda.ir/about/Resume" />
-		<meta name="twitter:url" content="https://alasda.ir/about/Resume" />
-		<meta name="og:url" content="https://alasda.ir/about/Resume" />
-		<title>Resume: Alasdair McCall | alasda.ir</title>
-		<meta name="twitter:title" content="Resume: Alasdair McCall | alasda.ir" />
-		<meta name="og:title" content="Resume: Alasdair McCall | alasda.ir" />
-		<meta name="description" content="Alasdair's blog and resume" />
-		<meta name="twitter:description" content="Alasdair's blog and resume" />
-		<meta name="og:description" content="Alasdair's blog and resume" />
+		<link rel="canonical" href={canonical} />
+		<meta name="twitter:url" content={canonical} />
+		<meta name="og:url" content={canonical} />
+		<title>{title}</title>
+		<meta name="twitter:title" content={title} />
+		<meta name="og:title" content={title} />
+		<meta name="description" content={description} />
+		<meta name="twitter:description" content={description} />
+		<meta name="og:description" content={description} />
 		<meta name="twitter:card" content="summary" />
 		<link rel="stylesheet" href="/styles.css" type="text/css" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -22,6 +36,18 @@
 		<meta name="generator" content={Astro.generator} />
 	</head>
 	<body>
+		<header>
+			<div class="wrapper">
+				<a href="/" class="site-name">Alasdair McCall</a>
+				<nav>
+					<a href="/blog/">Blog</a>
+				</nav>
+				<div class="print-only header-contact">
+					<span>https://alasda.ir</span>
+					<span>alasdair.mccall@gmail.com</span>
+				</div>
+			</div>
+		</header>
 		<slot />
 	</body>
 </html>
