@@ -1,8 +1,67 @@
-/**
-*  Publish Foundation theme
-*  Copyright (c) John Sundell 2019
-*  MIT license, see LICENSE file for details
-*/
+/* Light (GitHub) — default */
+:root {
+  --bg: #ffffff;
+  --bg-surface: #f6f8fa;
+  --bg-elevated: #e1e4e8;
+  --text: #24292e;
+  --text-muted: #6a737d;
+  --keyword: #d73a49;
+  --string: #032f62;
+  --comment: #6a737d;
+  --type: #005cc5;
+  --function: #6f42c1;
+  --punctuation: #6a737d;
+  --border: #e1e4e8;
+}
+
+/* Dark (Monokai) — system preference */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #272822;
+    --bg-surface: #2f3024;
+    --bg-elevated: #3e3d32;
+    --text: #f8f8f2;
+    --text-muted: #75715e;
+    --keyword: #f92672;
+    --string: #e6db74;
+    --comment: #75715e;
+    --type: #ae81ff;
+    --function: #a6e22e;
+    --punctuation: #75715e;
+    --border: #3e3d32;
+  }
+}
+
+/* Manual overrides */
+[data-theme="light"] {
+  --bg: #ffffff;
+  --bg-surface: #f6f8fa;
+  --bg-elevated: #e1e4e8;
+  --text: #24292e;
+  --text-muted: #6a737d;
+  --keyword: #d73a49;
+  --string: #032f62;
+  --comment: #6a737d;
+  --type: #005cc5;
+  --function: #6f42c1;
+  --punctuation: #6a737d;
+  --border: #e1e4e8;
+}
+
+[data-theme="dark"] {
+  --bg: #272822;
+  --bg-surface: #2f3024;
+  --bg-elevated: #3e3d32;
+  --text: #f8f8f2;
+  --text-muted: #75715e;
+  --keyword: #f92672;
+  --string: #e6db74;
+  --comment: #75715e;
+  --type: #ae81ff;
+  --function: #a6e22e;
+  --punctuation: #75715e;
+  --border: #3e3d32;
+}
 
 * {
     margin: 0;
@@ -11,11 +70,11 @@
 }
 
 body {
-    background: #f7f7ef;
-    color: #000;
-    font-family: sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Menlo', 'Consolas', 'Courier New', monospace;
     text-align: center;
-    font-size: 1.2em;
+    font-size: 1em;
 }
 
 .print-only {
@@ -30,27 +89,37 @@ body {
     max-width: 900px;
     margin-left: auto;
     margin-right: auto;
-    padding: 40px;
+    padding: 32px;
     text-align: left;
 }
 
 header {
-    background-color: #5C80BC;
+    background-color: var(--bg-surface);
+    border-bottom: 1px solid var(--border);
 }
 
 header .wrapper {
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     text-align: center;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
+header nav {
+    display: flex;
+    gap: 24px;
+}
+
 header nav a {
-    color: #fff;
+    color: var(--text);
     text-decoration: none;
-    font-size: 1em;
+    font-size: 0.9em;
+}
+
+header nav a:hover {
+    color: var(--function);
 }
 
 header a {
@@ -58,43 +127,92 @@ header a {
 }
 
 header .site-name {
-    font-size: 1.5em;
-    color: #FFFF;
+    font-size: 1.3em;
+    color: var(--function);
     font-weight: bold;
 }
 
-
 h1 {
     margin-bottom: 20px;
-    font-size: 2em;
+    font-size: 1.6em;
+    color: var(--keyword);
+}
+
+h1::before {
+    content: '# ';
+    color: var(--punctuation);
 }
 
 h2 {
     margin-bottom: 16px;
+    color: var(--keyword);
+}
+
+h2::before {
+    content: '## ';
+    color: var(--punctuation);
 }
 
 h3 {
-    margin-bottom: 12px;
+    margin-bottom: 8px;
+    color: var(--keyword);
+}
+
+h3::before {
+    content: '### ';
+    color: var(--punctuation);
 }
 
 p {
     margin-bottom: 10px;
+    line-height: 1.6;
 }
 
 a {
-    color: inherit;
+    color: var(--function);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 32px 0;
+    position: relative;
+}
+
+hr::before {
+    content: '---';
+    color: var(--punctuation);
+    font-size: 0.85em;
+    position: absolute;
+    top: -0.6em;
+    left: 0;
+    background: var(--bg);
+    padding-right: 8px;
 }
 
 .description {
     margin-bottom: 40px;
 }
 
+/* Resume section blocks */
+.resume-section {
+    border-left: 2px solid var(--border);
+    padding-left: 16px;
+    margin-bottom: 32px;
+}
+
+/* Item list (blog cards) */
 .item-list > li {
     display: block;
-    padding: 20px;
-    border-radius: 20px;
-    background-color: #eee;
-    margin-bottom: 20px;
+    padding: 16px;
+    border: 1px solid var(--border);
+    background-color: var(--bg-surface);
+    margin-bottom: 16px;
 }
 
 .item-list > li:last-child {
@@ -102,14 +220,15 @@ a {
 }
 
 .item-list h1 {
-    margin-bottom: 15px;
-    font-size: 1.3em;
+    margin-bottom: 12px;
+    font-size: 1.1em;
 }
 
 .item-list p {
     margin-bottom: 0;
 }
 
+/* Tag list */
 .tag-list {
     margin-bottom: 15px;
 }
@@ -117,10 +236,11 @@ a {
 .tag-list li,
 .tag {
     display: inline-block;
-    background-color: #000;
-    color: #ddd;
-    padding: 4px 6px;
-    border-radius: 5px;
+    background-color: var(--bg-elevated);
+    color: var(--text);
+    padding: 3px 6px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
     margin-right: 5px;
 }
 
@@ -143,22 +263,32 @@ a {
 }
 
 .all-tags li {
-    font-size: 1.4em;
+    font-size: 1.2em;
     margin-right: 10px;
-    padding: 6px 10px;
+    padding: 4px 8px;
 }
 
+/* Skill tags — inline code style */
 .resume-skills {
     list-style: none;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
 }
 
 .resume-skills li {
     display: inline-block;
+    font-family: 'Menlo', 'Consolas', 'Courier New', monospace;
     font-size: 0.8em;
-    font-style: italic;
+    color: var(--type);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    padding: 1px 6px;
+    border-radius: 3px;
 }
 
+/* Social links */
 .find-me {
     list-style: none;
     margin-bottom: 24px;
@@ -166,8 +296,8 @@ a {
 
 .find-me li {
     margin-bottom: 8px;
-    list-style: disc;
-    margin-left: 20px;
+    list-style: none;
+    margin-left: 0;
 }
 
 .find-me a {
@@ -175,13 +305,20 @@ a {
     align-items: center;
     gap: 8px;
     text-decoration: none;
+    color: var(--text);
+}
+
+.find-me a:hover {
+    color: var(--function);
 }
 
 .find-me li svg {
-    height: 18px;
-    width: 18px;
+    height: 16px;
+    width: 16px;
+    fill: var(--text-muted);
 }
 
+/* Portfolio */
 .portfolio {
     list-style: none;
     max-width: 600px;
@@ -194,68 +331,112 @@ a {
 }
 
 .portfolio li img {
-    border-radius: 16px;
-    height: 80px;
-    width: 80px;
+    border-radius: 12px;
+    height: 72px;
+    width: 72px;
+    border: 1px solid var(--border);
 }
 
 .portfolio-item-description {
-    list-style: none;
-    display: inline-block;
-    margin-left: 8px;
-    vertical-align: top;
+    display: none;
 }
 
-.portfolio-item-description li {
-    display: list-item;
-    margin-bottom: 4px;
-    margin-right: 0px;
-}
-
+/* Company / date line */
 .resume-company {
-    margin-bottom: 0px;
-    font-style: oblique;
+    margin-bottom: 8px;
+    color: var(--comment);
+    font-style: normal;
 }
 
 footer {
-    color: #8a8a8a;
+    color: var(--text-muted);
 }
 
-@media (prefers-color-scheme: dark) {
+/* Theme toggle */
+.theme-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-family: inherit;
+    font-size: 1em;
+    width: 32px;
+    height: 32px;
+    background: var(--bg-elevated);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.theme-toggle:hover {
+    color: var(--function);
+    border-color: var(--function);
+}
+
+/* Print */
+@media print {
     body {
-        background-color: #222;
-    }
-
-    body,
-    header .site-name {
-        color: #ddd;
-    }
-
-    .item-list > li {
-        background-color: #333;
+        background: #fff;
+        color: #000;
+        font-family: 'Menlo', 'Consolas', 'Courier New', monospace;
     }
 
     header {
-        background-color: #000;
+        background: #fff;
+        border-bottom: 1px solid #ccc;
     }
-    
+
+    header .site-name {
+        color: #000;
+    }
+
+    header nav {
+        display: none;
+    }
+
+    h1, h2, h3 {
+        color: #000;
+    }
+
+    a {
+        color: #000;
+    }
+
+    .resume-section {
+        border-left-color: #ccc;
+    }
+
+    .resume-skills li {
+        color: #000;
+        background: #f5f5f5;
+        border-color: #ccc;
+    }
+
     .find-me li svg {
-        fill: white
+        fill: #000;
     }
 
-}
-
-@media print {
-}
-
-@media print {
     .print-only {
         display: block;
     }
+
+    .theme-toggle {
+        display: none;
+    }
 }
 
-@media(max-width: 600px) {
+/* Mobile */
+@media (max-width: 600px) {
     .wrapper {
-        padding: 40px 20px;
+        padding: 24px 16px;
+    }
+
+    body {
+        font-size: 0.95em;
     }
 }

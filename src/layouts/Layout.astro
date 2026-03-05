@@ -6,9 +6,9 @@ interface Props {
 }
 
 const {
-	title = 'Alasdair McCall | alasda.ir',
+	title = 'Alasdair.md',
 	description = "Alasdair's blog and resume",
-	canonical = 'https://alasda.ir',
+	canonical = 'https://alasdair.md',
 } = Astro.props;
 ---
 
@@ -16,7 +16,7 @@ const {
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="og:site_name" content="alasda.ir" />
+		<meta name="og:site_name" content="Alasdair.md" />
 		<link rel="canonical" href={canonical} />
 		<meta name="twitter:url" content={canonical} />
 		<meta name="og:url" content={canonical} />
@@ -30,24 +30,53 @@ const {
 		<link rel="stylesheet" href="/styles.css" type="text/css" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="shortcut icon" href="/images/favicon.png" type="image/png" />
-		<link rel="alternate" href="/feed.rss" type="application/rss+xml" title="Subscribe to alasda.ir" />
-		<meta name="twitter:image" content="https://alasda.ir/images/profile.png" />
-		<meta name="og:image" content="https://alasda.ir/images/profile.png" />
+		<link rel="alternate" href="/feed.rss" type="application/rss+xml" title="Subscribe to Alasdair.md" />
+		<meta name="twitter:image" content="https://alasdair.md/images/profile.png" />
+		<meta name="og:image" content="https://alasdair.md/images/profile.png" />
 		<meta name="generator" content={Astro.generator} />
 	</head>
 	<body>
 		<header>
 			<div class="wrapper">
-				<a href="/" class="site-name">Alasdair McCall</a>
+				<a href="/" class="site-name">Alasdair.md</a>
 				<nav>
 					<a href="/blog/">Blog</a>
+					<a href="/resume/">Resume</a>
 				</nav>
 				<div class="print-only header-contact">
-					<span>https://alasda.ir</span>
+					<span>https://alasdair.md</span>
 					<span>alasdair.mccall@gmail.com</span>
 				</div>
 			</div>
 		</header>
 		<slot />
+		<button class="theme-toggle" aria-label="Toggle dark/light mode"></button>
+		<script>
+			const html = document.documentElement;
+			const btn = document.querySelector('.theme-toggle');
+			const mq = window.matchMedia('(prefers-color-scheme: dark)');
+
+			function systemTheme() {
+				return mq.matches ? 'dark' : 'light';
+			}
+
+			function applyTheme(theme) {
+				html.dataset.theme = theme;
+				btn.textContent = theme === 'dark' ? '☀' : '☾';
+			}
+
+			const saved = localStorage.getItem('theme');
+			applyTheme(saved || systemTheme());
+
+			btn.addEventListener('click', () => {
+				const next = html.dataset.theme === 'dark' ? 'light' : 'dark';
+				localStorage.setItem('theme', next);
+				applyTheme(next);
+			});
+
+			mq.addEventListener('change', () => {
+				if (!localStorage.getItem('theme')) applyTheme(systemTheme());
+			});
+		</script>
 	</body>
 </html>
