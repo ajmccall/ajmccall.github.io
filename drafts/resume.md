@@ -38,7 +38,7 @@ Current focusing on European growth through understanding the unique needs of th
 ___#swift, #swiftui, #architecture___
 In between work I spend some time working on personal projects that come to mind. Currently working/thinking about an interactive podcast application called _garnish_ and testing ideas about SwiftUI and app architecture.
 
-When the moment strikes, I throw a few words down on my blog http://alasda.ir
+When the moment strikes, I throw a few words down on my blog http://alasdair.md
 
 <!-- <p style="page-break-after: always;">&nbsp;</p>
 <p style="page-break-before: always;">&nbsp;</p> -->

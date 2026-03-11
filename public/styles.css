@@ -352,6 +352,25 @@ hr::before {
     font-style: normal;
 }
 
+/* Markdown resume: inline code as skill pills */
+.resume-section code {
+    font-family: 'Menlo', 'Consolas', 'Courier New', monospace;
+    font-size: 0.8em;
+    color: var(--type);
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    padding: 1px 6px;
+    border-radius: 3px;
+}
+
+/* Markdown resume: em as company/date line */
+.resume-section p em {
+    color: var(--comment);
+    font-style: normal;
+    display: block;
+    margin-bottom: 8px;
+}
+
 footer {
     color: var(--text-muted);
 }

@@ -15,7 +15,7 @@ I enjoy the finer aspects of programming as a craft; clean code, agile work envi
 In between I'm a ferocious podcast listener, especially while cycling. Sometimes I play guitar or kick a hacky sack. I love ~~Stack Overflow~~ GPTChat and Brew Dog beers.
 
 # I'm here
-Online: <a href="https://alasda.ir">https://alasda.ir</a> 
+Online: <a href="https://alasdair.md">https://alasdair.md</a> 
 
 Email: <a href="mailto:alasdair.mccall@gmail.com">alasdair.mccall@gmail.com</a>
 
@@ -55,7 +55,7 @@ Beyond my day job, I'm exploring the latest trends and technologies in mobile de
 
 Currently working on personal project called Garnish, an interactive podcast application that leverages KMP and explores new approaches to native app architecture.
 
-When the moment strikes, I throw a few words down on my blog [http://alasda.ir](http://alasda.ir)
+When the moment strikes, I throw a few words down on my blog [http://alasdair.md](http://alasdair.md)
 
 # I've done
 

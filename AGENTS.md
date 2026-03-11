@@ -1,4 +1,4 @@
-# alasda.ir — Agent Instructions
+# alasdair.md — Agent Instructions
 
 Personal website and blog for Alasdair McCall. Built with Astro 5, deployed as a static site.
 
@@ -75,13 +75,13 @@ Edit `src/components/ResumeContent.astro` directly. It's pure HTML — sections 
 
 ```astro
 <Layout
-  title="Page Title | alasda.ir"
+  title="Page Title | alasdair.md"
   description="Short description for search engines"
-  canonical="https://alasda.ir/page-path/"
+  canonical="https://alasdair.md/page-path/"
 >
 ```
 
-Defaults: title `"Alasdair McCall | alasda.ir"`, description `"Alasdair's blog and resume"`, canonical `"https://alasda.ir"`.
+Defaults: title `"Alasdair McCall | alasdair.md"`, description `"Alasdair's blog and resume"`, canonical `"https://alasdair.md"`.
 
 ## Styling conventions
 

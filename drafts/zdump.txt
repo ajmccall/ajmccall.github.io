@@ -1,4 +1,4 @@
-2020-01-02 16:41:55|BASH Script to Record Xcode Simulator|bash-script-to-record-xcode-simulator|I've previous [written](http://alasda.ir/recording-a-video-of-the-xcode-simulator/) how to use `xcrun simctl` to record the simulator in an easy to use command line - I've improved this with a simple bash script.
+2020-01-02 16:41:55|BASH Script to Record Xcode Simulator|bash-script-to-record-xcode-simulator|I've previous [written](http://alasdair.md/recording-a-video-of-the-xcode-simulator/) how to use `xcrun simctl` to record the simulator in an easy to use command line - I've improved this with a simple bash script.
 
 ##### Record Xcode Simulator
 
@@ -949,7 +949,7 @@ Current focusing on European growth through understanding the unique needs of th
 ___#swift, #swiftui, #architecture___
 In between work I spend some time working on personal projects that come to mind. Currently working/thinking about an interactive podcast application called _garnish_ and testing ideas about SwiftUI and app architecture.
 
-When the moment strikes, I throw a few words down on my blog http://alasda.ir
+When the moment strikes, I throw a few words down on my blog http://alasdair.md
 
 <!-- <p style="page-break-after: always;">&nbsp;</p>
 <p style="page-break-before: always;">&nbsp;</p> -->

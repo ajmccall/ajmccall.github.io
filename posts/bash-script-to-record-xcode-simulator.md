@@ -4,7 +4,7 @@ description: BASH Script to Record Xcode Simulator
 filename: bash-script-to-record-xcode-simulator
 tags: 
 ---
-I've previous [written](http://alasda.ir/recording-a-video-of-the-xcode-simulator/) how to use `xcrun simctl` to record the simulator in an easy to use command line - I've improved this with a simple bash script.
+I've previous [written](http://alasdair.md/recording-a-video-of-the-xcode-simulator/) how to use `xcrun simctl` to record the simulator in an easy to use command line - I've improved this with a simple bash script.
 
 ##### Record Xcode Simulator
 
