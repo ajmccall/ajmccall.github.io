@@ -47,3 +47,13 @@ Thumbs.db
 
 # Node (if scripts are added later)
 node_modules/
+
+# AI Agent profiles (local auth, never commit)
+.envrc
+.envrc.local
+.agent-profile/
+.ai-agents/
+.claude/
+.copilot/
+.codex/
+.gemini/
