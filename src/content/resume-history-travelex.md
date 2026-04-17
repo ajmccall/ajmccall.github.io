@@ -1,17 +1,4 @@
-# I've been
-
-## Head of Mobile / Technical Product Owner
-*Travelex, 2023-2025*
-
-`#swift` `#android` `#reactNative` `#finTech` `#payments` `#product`
-
-I led mobile at Travelex, first stabilising the native apps and then guiding the move to React Native.
-
-I owned the roadmap, led a 14-person team, and worked closely with product and stakeholders to improve both delivery and commercial outcomes.
-
-I cut release cycles from quarterly to weekly, halved payment failure rates from 30% to 15%, improved a key conversion metric by 50%, and reduced onboarding drop-off from 35% to 8%.
-
-I also led the delivery of the next-generation cross-platform app on time and within budget, while keeping security and regulatory compliance in place.
+# I've also been
 
 ## Head of Technology
 *VIOU, 2023*

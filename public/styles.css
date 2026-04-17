@@ -1,22 +1,54 @@
 /* Light (GitHub) — default */
 :root {
-  --bg: #ffffff;
-  --bg-surface: #f6f8fa;
-  --bg-elevated: #e1e4e8;
-  --text: #24292e;
-  --text-muted: #6a737d;
-  --keyword: #d73a49;
-  --string: #032f62;
-  --comment: #6a737d;
-  --type: #005cc5;
-  --function: #6f42c1;
-  --punctuation: #6a737d;
-  --border: #e1e4e8;
+    --bg: #ffffff;
+    --bg-surface: #f6f8fa;
+    --bg-elevated: #e1e4e8;
+    --text: #24292e;
+    --text-muted: #6a737d;
+    --keyword: #d73a49;
+    --string: #032f62;
+    --comment: #6a737d;
+    --type: #005cc5;
+    --function: #6f42c1;
+    --punctuation: #6a737d;
+    --border: #e1e4e8;
 }
 
 /* Dark (Monokai) — system preference */
 @media (prefers-color-scheme: dark) {
-  :root {
+    :root {
+        --bg: #272822;
+        --bg-surface: #2f3024;
+        --bg-elevated: #3e3d32;
+        --text: #f8f8f2;
+        --text-muted: #75715e;
+        --keyword: #f92672;
+        --string: #e6db74;
+        --comment: #75715e;
+        --type: #ae81ff;
+        --function: #a6e22e;
+        --punctuation: #75715e;
+        --border: #3e3d32;
+    }
+}
+
+/* Manual overrides */
+[data-theme="light"] {
+    --bg: #ffffff;
+    --bg-surface: #f6f8fa;
+    --bg-elevated: #e1e4e8;
+    --text: #24292e;
+    --text-muted: #6a737d;
+    --keyword: #d73a49;
+    --string: #032f62;
+    --comment: #6a737d;
+    --type: #005cc5;
+    --function: #6f42c1;
+    --punctuation: #6a737d;
+    --border: #e1e4e8;
+}
+
+[data-theme="dark"] {
     --bg: #272822;
     --bg-surface: #2f3024;
     --bg-elevated: #3e3d32;
@@ -29,38 +61,6 @@
     --function: #a6e22e;
     --punctuation: #75715e;
     --border: #3e3d32;
-  }
-}
-
-/* Manual overrides */
-[data-theme="light"] {
-  --bg: #ffffff;
-  --bg-surface: #f6f8fa;
-  --bg-elevated: #e1e4e8;
-  --text: #24292e;
-  --text-muted: #6a737d;
-  --keyword: #d73a49;
-  --string: #032f62;
-  --comment: #6a737d;
-  --type: #005cc5;
-  --function: #6f42c1;
-  --punctuation: #6a737d;
-  --border: #e1e4e8;
-}
-
-[data-theme="dark"] {
-  --bg: #272822;
-  --bg-surface: #2f3024;
-  --bg-elevated: #3e3d32;
-  --text: #f8f8f2;
-  --text-muted: #75715e;
-  --keyword: #f92672;
-  --string: #e6db74;
-  --comment: #75715e;
-  --type: #ae81ff;
-  --function: #a6e22e;
-  --punctuation: #75715e;
-  --border: #3e3d32;
 }
 
 * {
@@ -179,20 +179,7 @@ a:hover {
 
 hr {
     border: none;
-    border-top: 1px solid var(--border);
-    margin: 32px 0;
-    position: relative;
-}
-
-hr::before {
-    content: '---';
-    color: var(--punctuation);
-    font-size: 0.85em;
-    position: absolute;
-    top: -0.6em;
-    left: 0;
-    background: var(--bg);
-    padding-right: 8px;
+    margin: 28px 0;
 }
 
 .description {
@@ -201,13 +188,16 @@ hr::before {
 
 /* Resume section blocks */
 .resume-section {
-    border-left: 2px solid var(--border);
-    padding-left: 16px;
-    margin-bottom: 32px;
+    margin-bottom: 28px;
 }
 
+.resume-page {
+    max-width: 900px;
+}
+
+
 /* Item list (blog cards) */
-.item-list > li {
+.item-list>li {
     display: block;
     padding: 16px;
     border: 1px solid var(--border);
@@ -215,7 +205,7 @@ hr::before {
     margin-bottom: 16px;
 }
 
-.item-list > li:last-child {
+.item-list>li:last-child {
     margin-bottom: 0;
 }
 
@@ -226,6 +216,41 @@ hr::before {
 
 .item-list p {
     margin-bottom: 0;
+}
+
+.tool-list p+p {
+    margin-top: 10px;
+}
+
+.tool-list-heading {
+    font-size: 1.1em;
+}
+
+.tool-list-name {
+    color: var(--keyword);
+    font-weight: bold;
+}
+
+.tool-summary-list {
+    list-style: none;
+    margin: 0 0 24px;
+    padding: 0;
+}
+
+.tool-summary-list li {
+    margin-bottom: 14px;
+}
+
+.tool-summary-list li:last-child {
+    margin-bottom: 0;
+}
+
+.tool-summary-list p {
+    margin-bottom: 0;
+}
+
+.tool-summary-list b {
+    color: var(--text);
 }
 
 /* Tag list */
@@ -294,7 +319,7 @@ hr::before {
     margin-bottom: 24px;
     display: flex;
     flex-direction: row;
-    gap: 20px;
+    gap: 24px;
     align-items: center;
 }
 
@@ -325,13 +350,14 @@ hr::before {
 /* Portfolio */
 .portfolio {
     list-style: none;
-    max-width: 600px;
+    display: grid;
+    grid-template-columns: repeat(4, max-content);
+    gap: 16px;
+    max-width: max-content;
 }
 
 .portfolio li {
-    margin-right: 16px;
-    margin-bottom: 16px;
-    display: inline-block;
+    margin: 0;
 }
 
 .portfolio li img {
@@ -373,6 +399,100 @@ hr::before {
 
 footer {
     color: var(--text-muted);
+}
+
+.home-intro-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 240px;
+    gap: 40px;
+    align-items: start;
+}
+
+.home-hero {
+    padding: 8px 0 16px;
+}
+
+.home-find-me {
+    margin-top: 16px;
+}
+
+.home-find-me-row {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.home-find-me-label {
+    font-size: 1.2em;
+    color: var(--text);
+    margin-bottom: 0;
+    white-space: nowrap;
+}
+
+.home-find-me .find-me {
+    margin-bottom: 0;
+}
+
+.home-profile {
+    margin: 0;
+}
+
+.home-profile img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid var(--function);
+}
+
+.home-kicker {
+    color: var(--type);
+    margin-bottom: 12px;
+}
+
+.home-intro {
+    font-size: 1.1em;
+    max-width: 42rem;
+}
+
+.button-link {
+    display: inline-block;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    background: var(--bg-surface);
+    color: var(--text);
+    border-radius: 4px;
+}
+
+.button-link:hover {
+    color: var(--function);
+    text-decoration: none;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.feature-card {
+    border: 1px solid var(--border);
+    background: var(--bg-surface);
+    padding: 16px;
+}
+
+.feature-card h2 {
+    margin-bottom: 12px;
+}
+
+.muted-text {
+    color: var(--text-muted);
+}
+
+.section-link {
+    margin-top: 16px;
 }
 
 /* Theme toggle */
@@ -422,7 +542,9 @@ footer {
         display: none;
     }
 
-    h1, h2, h3 {
+    h1,
+    h2,
+    h3 {
         color: #000;
     }
 
@@ -463,5 +585,27 @@ footer {
 
     body {
         font-size: 0.95em;
+    }
+
+    .home-intro-layout {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .home-profile {
+        max-width: 220px;
+    }
+
+    .home-find-me-row {
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .portfolio {
+        grid-template-columns: repeat(2, max-content);
+    }
+
+    .feature-grid {
+        grid-template-columns: 1fr;
     }
 }

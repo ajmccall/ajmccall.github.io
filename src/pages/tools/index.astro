@@ -1,0 +1,35 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { tools } from "../../data/tools";
+---
+
+<Layout
+	title="Tools | alasdair.md"
+	description="Tools, experiments, and GitHub projects by Alasdair McCall."
+	canonical="https://alasdair.md/tools/"
+>
+	<div class="wrapper">
+		<h1>Tools</h1>
+		<p class="description">
+			A collection of tools, experiments, and small projects I have built
+			and shared on GitHub.
+		</p>
+		<ul class="item-list tool-list">
+			{
+				tools.map((tool) => (
+					<li>
+						<p class="tool-list-heading">
+							<span class="tool-list-name">{tool.name}</span> {tool.description}
+						</p>
+						<p>{tool.details}</p>
+						<p>
+							<a href={tool.url} target="_blank" rel="noreferrer">
+								View on GitHub →
+							</a>
+						</p>
+					</li>
+				))
+			}
+		</ul>
+	</div>
+</Layout>

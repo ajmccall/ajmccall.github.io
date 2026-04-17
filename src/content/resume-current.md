@@ -1,12 +1,16 @@
 # I'm currently
 
-### Mobile Engineering Consultant
+## Mobile Engineering & Product Consultant
 *Mindera, 2025-present*
 
-`#aiCoach` `#swift` `#android` `#reactNative` `#retail` `#consulting`
+`#aiEnablement` `#product` `#swift` `#android` `#reactNative` `#consulting`
 
-I help partners solve complex mobile problems across iOS and Android, from strategy and architecture through to delivery and team development.
+I help teams win and deliver mobile work across iOS and Android.
 
-A big part of my work is practical AI coaching, helping engineers and product teams build confidence with modern tools and use them in ways that actually improve day-to-day work.
+That means shaping proposals, supporting RFPs and RFIs, solving hard technical and delivery problems, and helping teams make better product and engineering decisions.
 
-Outside work, I am exploring [Kotlin Multiplatform](https://kotlinlang.org/lp/mobile/) through Garnish, a personal podcast app project as well as learning new ways of working with AI. 
+I still work at code level: pairing with engineers, writing code, and helping teams build things that are practical, sound, and worth shipping.
+
+A big part of my work is AI enablement. I help engineers, product teams, and clients turn AI from theory into working tools, agentic workflows, and better ways of delivering software.
+
+Outside client work, I am building [Garnish](https://kotlinlang.org/lp/mobile/), a personal podcast app, to deepen my Kotlin Multiplatform skills and experiment with AI-native ways of working.
