@@ -25,17 +25,20 @@ posts/            # Blog post markdown files (source of truth)
 public/           # Static assets: styles.css, images/, favicon
 src/
   components/
-    ResumeContent.astro   # All resume/CV content lives here
+    ResumeContent.astro         # Public/default resume
+    ResumeContentTargeted.astro # Targeted resume variant
   content/
-    config.ts             # Content collection schema for posts
+    config.ts                    # Content collection schema for posts
   layouts/
-    Layout.astro          # Master layout — header, nav, meta tags
+    Layout.astro                 # Master layout — header, nav, meta tags
   pages/
-    index.astro           # Home page (renders ResumeContent)
-    resume/index.astro    # /resume/ (also renders ResumeContent)
+    index.astro                  # Home page
+    resume/index.astro           # /resume/
+    resume-targeted/index.astro  # hidden/known-url resume variant
     blog/
-      index.astro         # Blog listing page
-      [slug].astro        # Individual post pages
+      index.astro                # Blog listing page
+      [slug].astro               # Individual post pages
+legacy/                          # Old site/resume files kept for reference only
 ```
 
 ## Adding a blog post
@@ -60,7 +63,13 @@ Post content here...
 
 ## Updating the resume
 
-Edit `src/components/ResumeContent.astro` directly. It's pure HTML — sections follow this pattern:
+- Public/default resume: `src/components/ResumeContent.astro`
+- Targeted/hidden resume: `src/components/ResumeContentTargeted.astro`
+- Current resume copy lives in `src/content/resume-*.md`
+- Targeted resume copy lives in `src/content/resume-*-targeted.md`
+- Legacy files live in `legacy/` for reference only and should not be reused for live pages unless intentionally migrated.
+
+Sections follow this pattern:
 
 - `<h1>` — section heading (e.g. "I'm currently", "I've done", "I've been")
 - `<h3>` — role title

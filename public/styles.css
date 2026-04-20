@@ -342,9 +342,13 @@ hr {
 }
 
 .find-me li svg {
-    height: 28px;
-    width: 28px;
+    height: 42px;
+    width: 42px;
     fill: currentColor;
+}
+
+.find-me-text {
+    display: none;
 }
 
 /* Portfolio */
@@ -401,94 +405,32 @@ footer {
     color: var(--text-muted);
 }
 
-.home-intro-layout {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 240px;
-    gap: 40px;
-    align-items: start;
+.about-me-section {
+    position: relative;
+}
+
+.about-me-body {
+    min-width: 0;
+}
+
+.about-me-headshot {
+    float: right;
+    margin: 4px 0 12px 24px;
+}
+
+.about-me-headshot img {
+    display: block;
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10);
 }
 
 .home-hero {
     padding: 8px 0 16px;
-}
-
-.home-find-me {
-    margin-top: 16px;
-}
-
-.home-find-me-row {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    flex-wrap: wrap;
-}
-
-.home-find-me-label {
-    font-size: 1.2em;
-    color: var(--text);
-    margin-bottom: 0;
-    white-space: nowrap;
-}
-
-.home-find-me .find-me {
-    margin-bottom: 0;
-}
-
-.home-profile {
-    margin: 0;
-}
-
-.home-profile img {
-    display: block;
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 2px solid var(--function);
-}
-
-.home-kicker {
-    color: var(--type);
-    margin-bottom: 12px;
-}
-
-.home-intro {
-    font-size: 1.1em;
-    max-width: 42rem;
-}
-
-.button-link {
-    display: inline-block;
-    padding: 10px 14px;
-    border: 1px solid var(--border);
-    background: var(--bg-surface);
-    color: var(--text);
-    border-radius: 4px;
-}
-
-.button-link:hover {
-    color: var(--function);
-    text-decoration: none;
-}
-
-.feature-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 16px;
-}
-
-.feature-card {
-    border: 1px solid var(--border);
-    background: var(--bg-surface);
-    padding: 16px;
-}
-
-.feature-card h2 {
-    margin-bottom: 12px;
-}
-
-.muted-text {
-    color: var(--text-muted);
 }
 
 .section-link {
@@ -527,6 +469,7 @@ footer {
         background: #fff;
         color: #000;
         font-family: 'Menlo', 'Consolas', 'Courier New', monospace;
+        font-size: 11pt;
     }
 
     header {
@@ -536,24 +479,65 @@ footer {
 
     header .site-name {
         color: #000;
+        font-size: 1.1em;
+        white-space: nowrap;
+    }
+
+    header .wrapper {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 12px;
+        align-items: flex-start;
     }
 
     header nav {
         display: none;
     }
 
+    .header-contact {
+        margin-left: auto;
+        text-align: right;
+        white-space: nowrap;
+        font-size: 0.9em;
+    }
+
     h1,
     h2,
     h3 {
         color: #000;
+        break-after: avoid-page;
+    }
+
+    h1 {
+        font-size: 1.35em;
+        margin-bottom: 14px;
+    }
+
+    h2 {
+        font-size: 1.15em;
+        margin-bottom: 10px;
+    }
+
+    h3 {
+        font-size: 1em;
+        margin-bottom: 6px;
+    }
+
+    p,
+    ul,
+    li {
+        break-inside: avoid;
     }
 
     a {
         color: #000;
     }
 
-    .resume-section {
-        border-left-color: #ccc;
+    .resume-section,
+    .item-list > li,
+    .tool-list > li {
+        break-inside: avoid-page;
+        page-break-inside: avoid;
     }
 
     .resume-skills li {
@@ -562,10 +546,49 @@ footer {
         border-color: #ccc;
     }
 
+    .about-me-headshot {
+        float: right;
+        margin: 0 0 12px 16px;
+    }
+
+    .about-me-headshot img {
+        width: 120px;
+        height: 120px;
+        border-color: #ccc;
+        box-shadow: none;
+    }
+
+    .find-me {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .find-me a {
+        gap: 10px;
+        color: #000;
+    }
+
     .find-me li svg {
         fill: #000;
         height: 20px;
         width: 20px;
+        flex-shrink: 0;
+    }
+
+    .find-me-text {
+        display: inline;
+    }
+
+    .portfolio li img {
+        height: 56px;
+        width: 56px;
+    }
+
+    .content a[href^="http"]::after,
+    .resume-section a[href^="http"]::after,
+    .resume-section a[href^="mailto:"]::after {
+        content: none;
     }
 
     .print-only {
@@ -587,25 +610,17 @@ footer {
         font-size: 0.95em;
     }
 
-    .home-intro-layout {
-        grid-template-columns: 1fr;
-        gap: 24px;
+    .about-me-headshot {
+        float: none;
+        margin: 8px 0 0;
     }
 
-    .home-profile {
-        max-width: 220px;
-    }
-
-    .home-find-me-row {
-        align-items: flex-start;
-        gap: 12px;
+    .about-me-headshot img {
+        width: 140px;
+        height: 140px;
     }
 
     .portfolio {
         grid-template-columns: repeat(2, max-content);
-    }
-
-    .feature-grid {
-        grid-template-columns: 1fr;
     }
 }

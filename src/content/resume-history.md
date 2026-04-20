@@ -40,23 +40,19 @@ At Trainline, I delivered high-frequency features across payments, European oper
 
 I worked closely with product, design, and analytics in cross-functional teams, with a strong focus on quality and measurable impact.
 
-## Native Mobile Product & Team Lead
+## Native Mobile & Product Lead
 *Music startup, 2013-2017*
 
 `#product` `#agile` `#ios` `#lead`
 
-I led a five-person iOS team in a startup environment where everyone wore a few hats.
+I led a five-person iOS team in a startup environment where everyone wore a few hats. Grew into a Technical Product Owner role, balancing hands-on delivery with product direction.
 
-Over time, I grew into a Technical Product Owner role, balancing hands-on delivery with product direction.
-
-## Earlier career
-*Ocado, NBN, Content Delivery, 2004-2012*
+## Ocado
+*Ocado, 2009-2012*
 
 `#java` `#objc` `#android` `#python` `#linux`
 
-My early career covered mobile and Java engineering at Ocado, sysadmin and bioinformatics work at NBN, and my first role as a Java developer at Content Delivery.
-
-It was a great grounding in both startup pace and enterprise complexity.
+Java Engineer, Windows Phone early-adopter, Android tinkerer, iOS convert.
 
 # I'm certified
 
