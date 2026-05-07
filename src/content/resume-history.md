@@ -3,11 +3,11 @@
 ## Head of Mobile / Technical Product Owner
 *Travelex, 2023-2025*
 
-`#swift` `#android` `#reactNative` `#finTech` `#payments` `#product`
+`#android` `#reactNative` `#product` `#commercial` `#payments` `#swift`
 
 I led mobile at Travelex, first stabilising the native apps and then guiding the move to React Native.
 
-I owned the roadmap, led a 14-person team, and worked closely with product and stakeholders to improve both delivery and commercial outcomes.
+I owned the roadmap, led a 14-person team, and worked closely with product, commercial, and operational stakeholders to improve both delivery and commercial outcomes.
 
 I cut release cycles from quarterly to weekly, halved payment failure rates from 30% to 15%, improved a key conversion metric by 50%, and reduced onboarding drop-off from 35% to 8%.
 
@@ -31,7 +31,7 @@ Working closely with product and marketing, we kept shipping and iterating quick
 
 I was hired to grow and support a young native iGaming team.
 
-Introduced more product-led ways of working, cleaner architecture, and stronger engineering practices so the team could deliver with more consistency and confidence.
+Introduced more product-led ways of working, cleaner architecture, and stronger engineering practices so the team could make better trade-offs and deliver with more consistency and confidence.
 
 ## Senior iOS Engineer
 *Trainline, 2017-2021*
@@ -58,6 +58,6 @@ Java Engineer, Windows Phone early-adopter, Android tinkerer, iOS convert.
 
 # I'm certified
 
-SCRUM Masters Course, Skills Matter, 2011
+Scrum Master course, Skills Matter, 2011
 
-BSc. Honours Computer Science, Cum Laude (1st), University of KwaZulu-Natal, 2002
+BSc Honours Computer Science, Cum Laude (1st), University of KwaZulu-Natal, 2002
