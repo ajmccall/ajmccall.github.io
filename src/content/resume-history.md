@@ -13,6 +13,8 @@ I cut release cycles from quarterly to weekly, halved payment failure rates from
 
 I also led the delivery of the next-generation cross-platform app on time and within budget, while keeping security and regulatory compliance in place.
 
+<div class="print-page-break"></div>
+
 ## Head of Technology
 *VIOU, 2023*
 
