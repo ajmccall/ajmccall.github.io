@@ -1,15 +1,6 @@
 ---
-import { getCollection } from "astro:content";
 import HomeContent from "../components/HomeContent.astro";
 import Layout from "../layouts/Layout.astro";
-
-const latestPosts = (await getCollection("posts"))
-	.filter((post) => post.id !== "index")
-	.sort(
-		(a, b) =>
-			new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
-	)
-	.slice(0, 3);
 ---
 
 <Layout
@@ -18,6 +9,6 @@ const latestPosts = (await getCollection("posts"))
 	canonical="https://alasdair.md"
 >
 	<div class="wrapper">
-		<HomeContent latestPosts={latestPosts} />
+		<HomeContent />
 	</div>
 </Layout>

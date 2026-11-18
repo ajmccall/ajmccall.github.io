@@ -16,30 +16,32 @@ const {
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="og:site_name" content="Alasdair.md" />
+		<meta property="og:site_name" content="Alasdair.md" />
 		<link rel="canonical" href={canonical} />
 		<meta name="twitter:url" content={canonical} />
-		<meta name="og:url" content={canonical} />
+		<meta property="og:url" content={canonical} />
 		<title>{title}</title>
 		<meta name="twitter:title" content={title} />
-		<meta name="og:title" content={title} />
+		<meta property="og:title" content={title} />
 		<meta name="description" content={description} />
 		<meta name="twitter:description" content={description} />
-		<meta name="og:description" content={description} />
+		<meta property="og:description" content={description} />
 		<meta name="twitter:card" content="summary" />
+		<meta property="og:type" content="website" />
 		<link rel="stylesheet" href="/styles.css" type="text/css" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="shortcut icon" href="/images/favicon.png" type="image/png" />
 		<link rel="alternate" href="/feed.rss" type="application/rss+xml" title="Subscribe to Alasdair.md" />
+		<meta property="og:image" content="https://alasdair.md/images/profile.png" />
 		<meta name="twitter:image" content="https://alasdair.md/images/profile.png" />
-		<meta name="og:image" content="https://alasdair.md/images/profile.png" />
 		<meta name="generator" content={Astro.generator} />
 	</head>
 	<body>
+		<a class="skip-link" href="#main-content">Skip to content</a>
 		<header>
 			<div class="wrapper">
 				<a href="/" class="site-name">Alasdair.md</a>
-				<nav>
+				<nav aria-label="Main navigation">
 					<a href="/blog/">Blog</a>
 					<a href="/tools/">Tools</a>
 					<a href="/resume/">Resume</a>
@@ -50,33 +52,48 @@ const {
 				</div>
 			</div>
 		</header>
-		<slot />
+		<main id="main-content">
+			<slot />
+		</main>
 		<button class="theme-toggle" aria-label="Toggle dark/light mode"></button>
 		<script>
 			const html = document.documentElement;
-			const btn = document.querySelector('.theme-toggle');
+			const btn = document.querySelector<HTMLButtonElement>('.theme-toggle');
 			const mq = window.matchMedia('(prefers-color-scheme: dark)');
 
 			function systemTheme() {
 				return mq.matches ? 'dark' : 'light';
 			}
 
-			function applyTheme(theme) {
+			function applyTheme(theme: 'dark' | 'light') {
 				html.dataset.theme = theme;
-				btn.textContent = theme === 'dark' ? '☀' : '☾';
+				if (btn) {
+					btn.textContent = theme === 'dark' ? '☀' : '☾';
+					btn.setAttribute('aria-label', `Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`);
+				}
 			}
 
-			const saved = localStorage.getItem('theme');
-			applyTheme(saved || systemTheme());
+			let preferredTheme: 'dark' | 'light' | null = null;
+			try {
+				const saved = localStorage.getItem('theme');
+				if (saved === 'dark' || saved === 'light') preferredTheme = saved;
+			} catch {
+				// The system theme still works when browser storage is blocked.
+			}
+			applyTheme(preferredTheme || systemTheme());
 
-			btn.addEventListener('click', () => {
-				const next = html.dataset.theme === 'dark' ? 'light' : 'dark';
-				localStorage.setItem('theme', next);
-				applyTheme(next);
+			btn?.addEventListener('click', () => {
+				preferredTheme = html.dataset.theme === 'dark' ? 'light' : 'dark';
+				applyTheme(preferredTheme);
+				try {
+					localStorage.setItem('theme', preferredTheme);
+				} catch {
+					// Keep the choice for this page even if it cannot be persisted.
+				}
 			});
 
 			mq.addEventListener('change', () => {
-				if (!localStorage.getItem('theme')) applyTheme(systemTheme());
+				if (!preferredTheme) applyTheme(systemTheme());
 			});
 		</script>
 	</body>

@@ -77,6 +77,21 @@ body {
     font-size: 1em;
 }
 
+.skip-link {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    padding: 8px 12px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    transform: translateY(-200%);
+    z-index: 1001;
+}
+
+.skip-link:focus {
+    transform: translateY(0);
+}
+
 .print-only {
     display: none;
 }
@@ -213,7 +228,7 @@ hr {
     margin-bottom: 0;
 }
 
-.item-list h1 {
+.item-list h2 {
     margin-bottom: 12px;
     font-size: 1.1em;
 }
@@ -284,6 +299,18 @@ hr {
 
 .content {
     margin-bottom: 40px;
+    overflow-wrap: anywhere;
+}
+
+.content pre {
+    max-width: 100%;
+    overflow-x: auto;
+    margin-bottom: 16px;
+}
+
+.content img {
+    max-width: 100%;
+    height: auto;
 }
 
 .browse-all {
@@ -708,7 +735,8 @@ footer {
         page-break-before: always;
     }
 
-    .theme-toggle {
+    .theme-toggle,
+    .skip-link {
         display: none;
     }
 }

@@ -5,7 +5,7 @@
 
 `#peopleManagement` `#hiring` `#mobile` `#reactNative` `#payments`
 
-Led a 14-person mobile team, with to 12 direct reports. Owned hiring, one-to-ones, performance reviews, and promotion decisions, including difficult performance conversations.
+Led a 14-person mobile team, with up to 12 direct reports. Owned hiring, one-to-ones, performance reviews, and promotion decisions, including difficult performance conversations.
 
 Improved an underperforming team's delivery by mentoring junior engineers, removing blockers, and restructuring the mobile department.
 
