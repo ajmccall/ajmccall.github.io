@@ -469,6 +469,23 @@ footer {
 
 /* Print */
 @media print {
+    /* Keep paper readable regardless of the screen theme. */
+    :root {
+        color-scheme: light;
+        --bg: #ffffff;
+        --bg-surface: #f6f8fa;
+        --bg-elevated: #e1e4e8;
+        --text: #24292e;
+        --text-muted: #6a737d;
+        --keyword: #d73a49;
+        --string: #032f62;
+        --comment: #6a737d;
+        --type: #005cc5;
+        --function: #6f42c1;
+        --punctuation: #6a737d;
+        --border: #e1e4e8;
+    }
+
     @page {
         margin: 12mm;
     }
@@ -651,22 +668,27 @@ footer {
     .portfolio {
         display: flex;
         flex-wrap: wrap;
-        gap: 4pt 10pt;
+        gap: 6pt 12pt;
         max-width: none;
+        break-inside: avoid;
     }
 
     .portfolio li img {
-        display: none;
+        display: block;
+        width: 28pt;
+        height: 28pt;
+        border-radius: 6pt;
     }
 
-    .portfolio li::before {
+    .portfolio li::after {
         content: attr(data-label);
     }
 
     .portfolio li {
-        border: 1px solid var(--border);
-        border-radius: 3px;
-        padding: 1pt 4pt;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3pt;
         font-size: 7.5pt;
     }
 
