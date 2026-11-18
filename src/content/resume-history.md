@@ -3,15 +3,15 @@
 ## Head of Mobile / Technical Product Owner
 *Travelex, 2023-2025*
 
-`#android` `#reactNative` `#product` `#commercial` `#payments` `#swift`
+`#peopleManagement` `#hiring` `#mobile` `#reactNative` `#payments`
 
-I led mobile at Travelex, first stabilising the native apps and then guiding the move to React Native.
+Led a 14-person mobile team, with to 12 direct reports. Owned hiring, one-to-ones, performance reviews, and promotion decisions, including difficult performance conversations.
 
-I owned the roadmap, led a 14-person team, and worked closely with product, commercial, and operational stakeholders to improve both delivery and commercial outcomes.
+Improved an underperforming team's delivery by mentoring junior engineers, removing blockers, and restructuring the mobile department.
 
-I cut release cycles from quarterly to weekly, halved payment failure rates from 30% to 15%, improved a key conversion metric by 50%, and reduced onboarding drop-off from 35% to 8%.
+Then hired and managed the team that delivered the mobile replatforming from native apps to React Native, on time and within budget, while maintaining security and regulatory compliance.
 
-I also led the delivery of the next-generation cross-platform app on time and within budget, while keeping security and regulatory compliance in place.
+Owned the mobile roadmap and worked closely with product, commercial, and operational stakeholders. Across my time at Travelex, release cycles fell from quarterly to weekly, payment failure rates halved from 30% to 15%, a key conversion metric improved by 50%, and onboarding drop-off fell from 35% to 8%.
 
 <div class="print-page-break"></div>
 
@@ -27,9 +27,9 @@ Working closely with product and marketing, we kept shipping and iterating quick
 ## Head of Mobile
 *Markor Technology, 2021-2023*
 
-`#swift` `#kotlin` `#CI/CD` `#architecture` `#iGaming`
+`#peopleManagement` `#hiring` `#swift` `#kotlin` `#architecture`
 
-I was hired to grow and support a young native iGaming team.
+Hired and supported engineers in a small native mobile team building iGaming products. Owned one-to-ones, performance reviews, and promotion decisions.
 
 Introduced more product-led ways of working, cleaner architecture, and stronger engineering practices so the team could make better trade-offs and deliver with more consistency and confidence.
 

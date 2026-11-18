@@ -26,7 +26,6 @@ public/           # Static assets: styles.css, images/, favicon
 src/
   components/
     ResumeContent.astro         # Public/default resume
-    ResumeContentTargeted.astro # Targeted resume variant
   content/
     config.ts                    # Content collection schema for posts
   layouts/
@@ -34,7 +33,6 @@ src/
   pages/
     index.astro                  # Home page
     resume/index.astro           # /resume/
-    resume-targeted/index.astro  # hidden/known-url resume variant
     blog/
       index.astro                # Blog listing page
       [slug].astro               # Individual post pages
@@ -64,9 +62,7 @@ Post content here...
 ## Updating the resume
 
 - Public/default resume: `src/components/ResumeContent.astro`
-- Targeted/hidden resume: `src/components/ResumeContentTargeted.astro`
 - Current resume copy lives in `src/content/resume-*.md`
-- Targeted resume copy lives in `src/content/resume-*-targeted.md`
 - Legacy files live in `legacy/` for reference only and should not be reused for live pages unless intentionally migrated.
 - Whenever resume copy or layout changes, include a print/PDF readability check before finishing. At minimum, review `/resume/` in print context or generate a PDF using browser print/Cmd-P/headless Chrome and confirm the content reads cleanly, page breaks are sensible, and no section is awkwardly split.
 

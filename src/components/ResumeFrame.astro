@@ -12,6 +12,10 @@ import PortfolioGrid from "./PortfolioGrid.astro";
 </section>
 
 <section class="resume-section">
+	<slot name="history" />
+</section>
+
+<section class="resume-section">
 	<h1>I'm here</h1>
 	<FindMeLinks />
 </section>
@@ -19,8 +23,4 @@ import PortfolioGrid from "./PortfolioGrid.astro";
 <section class="resume-section">
 	<h1>I've done</h1>
 	<PortfolioGrid />
-</section>
-
-<section class="resume-section">
-	<slot name="history" />
 </section>
